@@ -1,0 +1,54 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20200923132547_CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200923132547_CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200923133425_CartTable-Added.cs" />
+    <Compile Remove="Migrations\20200923133425_CartTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200923134831_CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200923134831_CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200923135121_CartTable-Added.cs" />
+    <Compile Remove="Migrations\20200923135121_CartTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200923140220_CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200923140220_CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200923140351_CartTable-Added.cs" />
+    <Compile Remove="Migrations\20200923140351_CartTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925040209_CartTable-FixFK.cs" />
+    <Compile Remove="Migrations\20200925040209_CartTable-FixFK.Designer.cs" />
+    <Compile Remove="Migrations\20200925040644_CartTable-FixFK.cs" />
+    <Compile Remove="Migrations\20200925040644_CartTable-FixFK.Designer.cs" />
+    <Compile Remove="Migrations\20200925041433_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925041433_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925042458_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925042458_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925050258_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925050258_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925051824_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925051824_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925060655_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925060655_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925071653_CartTable&amp;CartDetailTable-Added.cs" />
+    <Compile Remove="Migrations\20200925071653_CartTable&amp;CartDetailTable-Added.Designer.cs" />
+    <Compile Remove="Migrations\20200925092154_CartDetailTable&amp;CartTable-Addded.cs" />
+    <Compile Remove="Migrations\20200925092154_CartDetailTable&amp;CartTable-Addded.Designer.cs" />
+    <Compile Remove="Migrations\20200925134042_CartDetailTable&amp;CartTable-Addded.cs" />
+    <Compile Remove="Migrations\20200925134042_CartDetailTable&amp;CartTable-Addded.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MailKit" Version="2.9.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+  </ItemGroup>
+
+</Project>

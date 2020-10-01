@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Product>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                <div class="col-md-4 col-6 my-4">
+                    <div class="card-transition">
+                        <img src="@Url.Content(product.ImagePath)" class="img-fluid" />
+                        <div class="info">
+                            <h6 class="text-center" style="font-size:1.2rem">@product.ProductName</h6>
+                            <p class="text-center" style="font-size:1.3rem"> € @product.ProductPrice</p>
+                            <button class="w-100" onclick="location.href='@Url.Action("AddCart", new { itemID = product.ProductID })'">Mua luôn</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

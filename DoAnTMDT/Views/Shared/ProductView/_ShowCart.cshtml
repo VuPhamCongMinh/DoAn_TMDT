@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Cart>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            @foreach (var cart in Model)
+            {
+                <div class="col-md-4 col-6 my-4">
+                    <h5>@cart.CartID</h5>
+                    @foreach (var cartDetail in cart.CartDetails)
+                    {
+                        <h6>@cartDetail.Product.ProductName</h6>
+                        <h6>@cartDetail.Quantity</h6>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+</div>

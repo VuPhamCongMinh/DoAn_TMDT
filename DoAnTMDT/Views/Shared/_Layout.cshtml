@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+@{
+    string userName = User.Identity.Name != null ? $"Xin chào {User.Identity.Name}" : null;
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DoAnTMDT</title>
+    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@500&display=swap" rel="stylesheet">
+    <link href="~/lib/hover.css/css/hover-min.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar d-flex justify-content-center">
+            <div class="row">
+                <a class="navbar-brand d-flex justify-content-center" href="#">
+                    <img src="~/images/gucci-logo.png" class="w-50" loading="lazy">
+                </a>
+            </div>
+        </nav>
+
+        <div class="row d-flex justify-content-center w-100">
+            @await Component.InvokeAsync("DisplayCartTotal")
+            <a class="hvr-buzz-out btn btn-light" style="font-size: 1.35rem;padding:0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif;color:black;text-decoration:none" asp-action="Index">Trang chủ</a>
+            @if (userName == null)
+            {<a class="hvr-buzz-out btn btn-light" style="font-size: 1.35rem;padding:0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif;color:black;text-decoration:none" asp-controller="Account" asp-action="Login">Đăng nhập</a>}
+            else
+            {
+                <form method="post" asp-controller="Account" asp-action="Logout">
+                    <button type="submit" style="font-size: 1.35rem; padding: 0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif; color: black; text-decoration: none"
+                            class="hvr-buzz-out btn btn-light">
+                        Đăng xuất ?
+                    </button>
+                </form>
+            }
+
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
+
+
+</body>
+</html>
