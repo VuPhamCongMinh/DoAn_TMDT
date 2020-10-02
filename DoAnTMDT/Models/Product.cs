@@ -56,7 +56,7 @@ namespace DoAnTMDT.Models
                 _cookieServices.AddCookie(httpContext, "CART_INFORMATION", httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
                 //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
-                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x=>x.Product).Where(x => !x.IsPayed).ToList();
+                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => !x.IsPayed).ToList();
                 return dsdonhangchuathanhtoan;
             }
         }
@@ -76,11 +76,16 @@ namespace DoAnTMDT.Models
                         cookieKey = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                         _cookieServices.AddCookie(httpContext, "CART_INFORMATION", cookieKey);
                     }
-                    var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && !x.Cart.IsPayed).FirstOrDefault();
+                    var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && !x.Cart.IsPayed);
 
-                    if (bienkiemtraxemcodonhangchuathanhtoancocungmadonhang != null)
+                    if (bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Count() > 0)
                     {
-                        _context.CartDetailTable.Add(new CartDetail { Product = bienkiemtraxemcosanphamtrongdb, Quantity = 1, Cart = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Cart, CartID = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.CartID });
+                        var bienkiemtraxemsanphamdodacotronggiohangchua = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Where(x => x.ProductID == itemID).FirstOrDefault();
+                        if ( bienkiemtraxemsanphamdodacotronggiohangchua != null)
+                        {
+                            bienkiemtraxemsanphamdodacotronggiohangchua.Quantity++;
+                        }
+                        //_context.CartDetailTable.Add(new CartDetail { Product = bienkiemtraxemcosanphamtrongdb, Quantity = 1, Cart = bienkiemtraxemsanphamdodacotronggiohangchua.Cart, CartID = bienkiemtraxemsanphamdodacotronggiohangchua.CartID });
                         _context.SaveChanges();
                         return true;
                     }

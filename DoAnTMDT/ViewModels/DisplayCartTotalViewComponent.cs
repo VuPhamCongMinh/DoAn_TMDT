@@ -18,8 +18,12 @@ namespace DoAnTMDT.ViewModels
         }
         public IViewComponentResult Invoke()
         {
-            var dsdonhang = _context.DisplayCart(HttpContext, _cookieServices);
-            return View("_TotalCartItem",dsdonhang);
+            if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != null)
+            {
+                var dsdonhang = _context.DisplayCart(HttpContext, _cookieServices);
+                return View("_TotalCartItem", dsdonhang);
+            }
+            return Content("");
         }
     }
 }
