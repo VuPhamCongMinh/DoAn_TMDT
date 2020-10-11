@@ -10,17 +10,14 @@
             @foreach (var cartItem in item.CartDetails)
             {
                 <div class="d-inline-flex align-items-center p-2 bd-highlight" style="width:25em">
-                    @if (item.CartDetails.Count == 0)
-                    {
-                        <img src="@Url.Content(cartItem.Product.ImagePath)" class="w-50" />
-                        <p class="font-weight-bold ml-2" href="#">
-                            @cartItem.Product.ProductName
-                            <br />
-                            $@cartItem.Product.ProductPrice
-                            <br />
-                            @cartItem.Quantity cái
-                        </p>
-                    }
+                    <img src="@Url.Content(cartItem.Product.ImagePath)" class="w-50" />
+                    <p class="font-weight-bold ml-2" href="#">
+                        @cartItem.Product.ProductName
+                        <br />
+                        $@cartItem.Product.ProductPrice
+                        <br />
+                        @cartItem.Quantity cái
+                    </p>
                 </div>
             }
         }

@@ -85,7 +85,10 @@ namespace DoAnTMDT.Models
                         {
                             bienkiemtraxemsanphamdodacotronggiohangchua.Quantity++;
                         }
-                        //_context.CartDetailTable.Add(new CartDetail { Product = bienkiemtraxemcosanphamtrongdb, Quantity = 1, Cart = bienkiemtraxemsanphamdodacotronggiohangchua.Cart, CartID = bienkiemtraxemsanphamdodacotronggiohangchua.CartID });
+                        else
+                        {
+                            _context.CartDetailTable.Add(new CartDetail { Product = bienkiemtraxemcosanphamtrongdb, Quantity = 1, Cart = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.First().Cart, CartID = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.First().CartID });
+                        }
                         _context.SaveChanges();
                         return true;
                     }

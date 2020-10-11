@@ -12,12 +12,13 @@ namespace DoAnTMDT.Models
     {
         [Key]
         public int CartDetailID { get; set; }
-        public string CartID { get; set; }
         [ForeignKey("Product")]
         public int ProductID { get; set; }
         public int Quantity { get; set; }
 
         public Product Product { get; set; }
+        [ForeignKey("Cart")]
+        public string CartID { get; set; }
         public Cart Cart { get; set; }
     }
 }

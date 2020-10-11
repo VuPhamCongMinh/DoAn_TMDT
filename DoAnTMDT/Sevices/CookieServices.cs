@@ -12,8 +12,11 @@ namespace DoAnTMDT.Sevices
     {
         public void AddCookie(HttpContext context, string key, string value)
         {
-            CookieOptions cookieOptions = new CookieOptions { Expires = DateTime.Now.AddMinutes(5) };
-            context.Response.Cookies.Append(key, value, cookieOptions);
+            if (value != null)
+            {
+                CookieOptions cookieOptions = new CookieOptions { Expires = DateTime.Now.AddMinutes(5) };
+                context.Response.Cookies.Append(key, value, cookieOptions);
+            }
         }
         public string ReadCookie(HttpContext context, string key)
         {
