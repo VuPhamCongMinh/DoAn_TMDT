@@ -10,11 +10,20 @@ namespace DoAnTMDT.Sevices
 {
     public class CookieServices
     {
-        public void AddCookie(HttpContext context, string key, string value)
+
+        public void AddCookie(HttpContext context, string key, string value, bool isPersistent = false)
         {
             if (value != null)
             {
-                CookieOptions cookieOptions = new CookieOptions { Expires = DateTime.Now.AddMinutes(5) };
+                CookieOptions cookieOptions;
+                if (isPersistent)
+                {
+                    cookieOptions = new CookieOptions { Expires = DateTime.Now.AddDays(14) };
+                }
+                else
+                {
+                    cookieOptions = new CookieOptions { Expires = DateTime.Now.AddDays(1) };
+                }
                 context.Response.Cookies.Append(key, value, cookieOptions);
             }
         }

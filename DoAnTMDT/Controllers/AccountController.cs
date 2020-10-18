@@ -48,7 +48,14 @@ namespace DoAnTMDT.Controllers
                 {
                     if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != _userManager.FindByNameAsync(vm.UserName).Result.Id || _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") == null)
                     {
-                        _cookieServices.AddCookie(HttpContext, "CART_INFORMATION", _userManager.FindByNameAsync(vm.UserName).Result.Id);
+                        if (vm.RememberMe)
+                        {
+                            _cookieServices.AddCookie(HttpContext, "CART_INFORMATION", _userManager.FindByNameAsync(vm.UserName).Result.Id, isPersistent: true);
+                        }
+                        else
+                        {
+                            _cookieServices.AddCookie(HttpContext, "CART_INFORMATION", _userManager.FindByNameAsync(vm.UserName).Result.Id);
+                        }
                     }
                     return RedirectToAction("Index", "Home");
                 }
@@ -61,8 +68,9 @@ namespace DoAnTMDT.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
+            _cookieServices.DeleteCookie(HttpContext, "CART_INFORMATION");
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()

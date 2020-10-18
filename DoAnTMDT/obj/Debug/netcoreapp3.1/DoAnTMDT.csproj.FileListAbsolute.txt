@@ -159,8 +159,11 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Accoun
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\MailKit.dll
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\MimeKit.dll
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csproj.CoreCompileInputs.cache
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.MvcApplicationPartsAssemblyInfo.cache
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csprojAssemblyReference.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ProductView\_ShowCart.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DisplayCartTotal\_TotalCartItem.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csprojAssemblyReference.cache
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csproj.CoreCompileInputs.cache
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.MvcApplicationPartsAssemblyInfo.cache
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\Checkout.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\BraintreeHttp-Dotnet.dll
+D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\Source.dll

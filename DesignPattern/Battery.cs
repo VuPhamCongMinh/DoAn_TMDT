@@ -1,34 +1,69 @@
-﻿using System;
+﻿using ConsoleApp1;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DesignPattern
+namespace _17DH111117
 {
     class Battery : ABattery
     {
-        public Battery(int current, int max) : base(current, max) { }
-        protected List<IBattery> Cells = new List<IBattery>();
 
-        public override void Charge()
+        protected List<IBattery> elements = new List<IBattery>();
+
+        private IChargeStrategy myStrat;
+
+        //Constructor khởi tạo object Battery với nCells là số lượng cell
+        //capCells là Current Capacity (sức chứa) của cell đó
+        //bycycle cho biết Battery đó có theo chu trình (bycycles) mà từ đó quyết định dùng Strategy nào
+        public Battery(int nCells, int capCells, bool bycycles)
         {
-            foreach (var cell in Cells)
+            for (int i = 0; i < nCells; i++)
             {
-                cell.Charge();
+                elements.Add(new Cell(capCells));
             }
+
+            if (bycycles)
+            {
+                myStrat = new StratRoundRobin();
+            }
+            else
+            {
+                myStrat = new StratMinMax();
+            }
+
         }
 
-        public override void Discharge()
+        public override bool Charge()
         {
-            foreach (var cell in Cells)
+            try
             {
-                cell.Discharge();
+                return myStrat.Charge(elements);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
+        public override bool Discharge()
+        {
+            try
+            {
+                return myStrat.Discharge(elements);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
             }
         }
 
         public override int GetCurrentCapacity()
         {
             int result = 0;
-            foreach (var cell in Cells)
+            foreach (IBattery cell in elements)
             {
                 result += cell.GetCurrentCapacity();
             }
@@ -38,20 +73,36 @@ namespace DesignPattern
         public override int GetMaxCapacity()
         {
             int result = 0;
-            foreach (var cell in Cells)
+            foreach (IBattery cell in elements)
             {
+                if (cell is Battery)
+                {
+                    result += cell.GetMaxCapacity();
+                }
+                else
+                {
                 result += cell.GetMaxCapacity();
+
+                }
             }
             return result;
         }
-
-        public new void Add(IBattery element)
+        public override string ToString()
         {
-            Cells.Add(element);
+            String buf = "[";
+            foreach (IBattery c in elements)
+            {
+                buf += c + ", ";
+            }
+            return buf.Substring(0, buf.Length - 2) + "]";
         }
-        public new void Remove(IBattery element)
+        public override void Add(IBattery element)
         {
-            Cells.Remove(element);
+            elements.Add(element);
+        }
+        public override void Remove(IBattery element)
+        {
+            elements.Remove(element);
         }
     }
 }

@@ -2,7 +2,13 @@
 using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MimeKit.Encodings;
+using Org.BouncyCastle.Math.EC.Rfc7748;
+using Org.BouncyCastle.X509;
+using PayPal.v1.BillingAgreements;
 using System.Linq;
+using System.Security.Claims;
 
 namespace DoAnTMDT.ViewModels
 {
@@ -18,12 +24,17 @@ namespace DoAnTMDT.ViewModels
         }
         public IViewComponentResult Invoke()
         {
-            if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != null)
+            if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != null && HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
             {
+                ViewBag.Total = _context.CartDetailTable.Where(x => x.Cart.UserID == _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") && !x.Cart.IsPayed).Count();
                 var dsdonhang = _context.DisplayCart(HttpContext, _cookieServices);
                 return View("_TotalCartItem", dsdonhang);
             }
-            return Content("");
+            else
+            {
+                _cookieServices.DeleteCookie(HttpContext, "CART_INFORMATION");
+                return Content("");
+            }
         }
     }
 }

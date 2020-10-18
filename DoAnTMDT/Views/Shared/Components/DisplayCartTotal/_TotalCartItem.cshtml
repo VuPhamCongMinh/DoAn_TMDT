@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Cart>
 <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        @ViewBag.Total
+    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="badge badge-light">@ViewBag.Total cái</span>
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
@@ -20,7 +20,7 @@
                     </p>
                 </div>
             }
+            <a class="btn btn-lg btn-dark" asp-controller="Home" asp-action="Checkout" asp-route-id="@item.CartID">MUA LUÔN</a>
         }
     </div>
-
 </div>

@@ -2,20 +2,39 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DesignPattern
+namespace _17DH111117
 {
     class Cell : ABattery
     {
-        public Cell(int current, int max) : base(current, max) { }
-
-        public override void Charge()
+        public Cell(int capCells)
         {
-            CurrentCapacity = CurrentCapacity++ <= MaxCapacity ? CurrentCapacity = CurrentCapacity++ : CurrentCapacity;
+            CurrentCapacity = capCells;
         }
 
-        public override void Discharge()
+        public override bool Charge()
         {
-            CurrentCapacity = CurrentCapacity-- >= 0 ? CurrentCapacity = CurrentCapacity-- : CurrentCapacity;
+            try
+            {
+                CurrentCapacity++;
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public override bool Discharge()
+        {
+            try
+            {
+                CurrentCapacity--;
+                return true;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public override int GetCurrentCapacity()
@@ -26,6 +45,12 @@ namespace DesignPattern
         public override int GetMaxCapacity()
         {
             return MaxCapacity;
+        }
+        public override string ToString()
+        {
+            string buf = "[";
+            buf += GetCurrentCapacity() + ", ";
+            return buf.Substring(0, buf.Length - 2) + "]";
         }
     }
 }
