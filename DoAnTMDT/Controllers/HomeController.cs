@@ -30,8 +30,16 @@ namespace DoAnTMDT.Controllers
             _secretID = config["paypal:clientSecret"];
         }
 
+        public JsonResult ItemToJson(string s)
+        {
+            var list = _context.ProductTable.Where(x=>x.ProductName.StartsWith(s)).ToList();
+            return Json(list);
+        }
+
         public IActionResult Index()
         {
+            string hostName = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+            string cc = Url.Action(nameof(CheckoutSuccess), nameof(HomeController), null, protocol: Request.Scheme);
             return View(_context.ProductTable.ToList());
         }
 
@@ -91,8 +99,6 @@ namespace DoAnTMDT.Controllers
                 });
             }
 
-            string hostName = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-
             var payment = new Payment()
             {
                 Intent = "sale",
@@ -118,8 +124,8 @@ namespace DoAnTMDT.Controllers
                 },
                 RedirectUrls = new RedirectUrls()
                 {
-                    CancelUrl = $"{hostName}/Home/CheckoutFail",
-                    ReturnUrl = $"{hostName}/Home/CheckoutSuccess",
+                    CancelUrl = Url.Action(nameof(CheckoutFail), nameof(HomeController), null, protocol: Request.Scheme),
+                    ReturnUrl = Url.Action(nameof(CheckoutSuccess), nameof(HomeController), null, protocol: Request.Scheme),
                 },
                 Payer = new Payer()
                 {

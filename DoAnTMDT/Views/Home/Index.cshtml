@@ -4,14 +4,77 @@
     ViewData["Title"] = "Products";
 }
 
+<style>
+    .dropdown-item img {
+        width: 25%;
+    }
+
+    .typeahead.dropdown-menu {
+        right: 15px !important;
+    }
+</style>
+
+
+
 <div class="row d-flex justify-content-center">
     <a class="hvr-buzz-out btn btn-light" style="padding:0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif;color:black;text-decoration:none" data-ajax="true" data-ajax-method="get" data-ajax-update="#productSection" data-ajax-url="@Url.Action("DisplayCart")">Hiển thị tất cả đơn hàng của user hiện tại </a>
     <a id="sortPriceAscBtn" class="hvr-buzz-out btn btn-light" style="padding:0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif;color:black;text-decoration:none" data-ajax="true" data-ajax-method="get" data-ajax-update="#productSection" data-ajax-url="@Url.Action("SortPriceAsc")">Sort by Price (Ascending)</a>
     <a id="sortPriceAscBtn" class="hvr-buzz-out btn btn-light" style="padding:0.5rem 2rem 0.5rem 2rem; font-family: 'Noto Sans TC', sans-serif;color:black;text-decoration:none" data-ajax="true" data-ajax-method="get" data-ajax-update="#productSection" data-ajax-url="@Url.Action("SortNameAsc")">Sort by Name (Ascending)</a>
 </div>
 
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <input type="text" id="select" class="form-control" />
+    </div>
+</div>
+
+
 @{
     <div id="productSection">
         <partial name="ProductView/_ShowProduct" model="Model" />
     </div>
 }
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" integrity="sha512-HWlJyU4ut5HkEj0QsK/IxBCY55n5ZpskyjVlAoV9Z7XQwwkqXoYdCIC93/htL3Gu5H3R4an/S0h2NXfbZk3g7w==" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $("#select").typeahead({
+                minLength: 3,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "@Url.Action("ItemToJson", "Home")",
+                        data: {
+                            "s": request
+                        },
+                        type: "GET",
+                        contentType: "json",
+                        success: function (data) {
+                            items = [];
+                            map = {};
+                            $.each(data, function (i, item) {
+                                items.push(item);
+                            });
+                            response(items);
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                highlighter: Object,
+                displayText: function (item) {
+                    let imgPath = item.imagePath.replace("~/", "");
+                    return `<img src="/${imgPath}" />` + '<span class="dropdown-item-extra ml-4">' + item.productName + '</span>'
+                },
+                afterSelect: function (data) {
+                    $("#select").val(data.productName).change();
+                }
+            });
+        });
+    </script>
+} 
