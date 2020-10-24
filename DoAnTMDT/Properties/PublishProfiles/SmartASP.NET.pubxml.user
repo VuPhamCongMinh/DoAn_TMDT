@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\Admin\Desktop\Ok</_PublishTargetUrl>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAACiagfLtcUUGxUIMZhIoIVwAAAAACAAAAAAAQZgAAAAEAACAAAADIZRXcKtl511pYUwGrO9eaGqt505kTSzegmOg7ADbKcAAAAAAOgAAAAAIAACAAAACvONhQCys8l6xY5Xm4aMVEPnQICcdkeEeo3Xlp3cA07SAAAADrrLsBh9dG58m/XMzjGlwnKMCxF4dX2thJo5hbQsLGikAAAABp7bHOLPJ2W0Wv53urswoW1vert05LAR/nb+BSIgDAKqVEdBW83AHp615pCrk0Xs3qp0qAea5XOR1TZLn4WuuY</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DoAnTMDT">
+      <Value>Data Source=SQL5059.site4now.net%3bInitial Catalog=DB_A694DD_DoAnTMDT%3bUser Id=DB_A694DD_DoAnTMDT_admin%3bPassword=kratos206</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+</Project>

@@ -11,5 +11,6 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>DoAnTMDT.DbContext.DoAnTMDT_Entities</WebStackScaffolding_DbContextTypeFullName>
+    <NameOfLastUsedPublishProfile>FTPProfile</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

@@ -38,8 +38,6 @@ namespace DoAnTMDT.Controllers
 
         public IActionResult Index()
         {
-            string hostName = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
-            string cc = Url.Action(nameof(CheckoutSuccess), nameof(HomeController), null, protocol: Request.Scheme);
             return View(_context.ProductTable.ToList());
         }
 
@@ -164,8 +162,6 @@ namespace DoAnTMDT.Controllers
                 //Process when Checkout with Paypal fails
                 return RedirectToAction(nameof(CheckoutFail));
             }
-
-            return View();
         }
 
         public IActionResult CheckoutSuccess()

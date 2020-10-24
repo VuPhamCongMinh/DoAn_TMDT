@@ -2,6 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>8a750a7b-3352-424c-b57f-94e0cbb40688</UserSecretsId>
+    <RuntimeFrameworkName>Microsoft.AspNetCore.App</RuntimeFrameworkName>
+    <PublishWithAspNetCoreTargetManifest>false</PublishWithAspNetCoreTargetManifest>
   </PropertyGroup>
 
   <ItemGroup>
