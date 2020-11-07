@@ -16,7 +16,6 @@ namespace DoAnTMDT.ViewModels
     {
         private readonly CookieServices _cookieServices;
         private readonly DoAnTMDT_Entities _context;
-
         public DisplayCartTotalViewComponent(CookieServices cookieServices, DoAnTMDT_Entities context)
         {
             _cookieServices = cookieServices;

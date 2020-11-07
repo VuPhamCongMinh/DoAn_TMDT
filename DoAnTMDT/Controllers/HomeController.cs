@@ -36,6 +36,12 @@ namespace DoAnTMDT.Controllers
             return Json(list);
         }
 
+        public IActionResult SingleItemToJson(int id)
+        {
+            var returnItem = _context.ProductTable.Find(id);
+            return Json(returnItem);
+        }
+
         public IActionResult Index()
         {
             return View(_context.ProductTable.ToList());

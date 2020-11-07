@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.5.2",
+      "destination": "wwwroot/lib/twitter-bootstrap/"
+    },
+    {
+      "library": "hover.css@2.3.1",
+      "destination": "wwwroot/lib/hover.css/"
+    },
+    {
+      "library": "jquery-ajax-unobtrusive@3.2.6",
+      "destination": "wwwroot/lib/jquery-ajax-unobtrusive/"
+    }
+  ]
+}
