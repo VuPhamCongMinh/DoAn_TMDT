@@ -213,17 +213,17 @@
         $('.js-sidebar').removeClass('show-sidebar');
     });
 
-    /*==================================================================
-    [ +/- num product ]*/
-    $('.btn-num-product-down').on('click', function () {
-        var numProduct = Number($(this).next().val());
-        if (numProduct > 0) $(this).next().val(numProduct - 1);
-    });
+    ///*==================================================================
+    //[ +/- num product ]*/
+    //$('.btn-num-product-down').on('click', function () {
+    //    var numProduct = Number($(this).next().val());
+    //    if (numProduct > 0) $(this).next().val(numProduct - 1);
+    //});
 
-    $('.btn-num-product-up').on('click', function () {
-        var numProduct = Number($(this).prev().val());
-        $(this).prev().val(numProduct + 1);
-    });
+    //$('.btn-num-product-up').on('click', function () {
+    //    var numProduct = Number($(this).prev().val());
+    //    $(this).prev().val(numProduct + 1);
+    //});
 
     /*==================================================================
     [ Rating ]*/
@@ -269,20 +269,20 @@
 
     /*==================================================================
     [ Show modal1 ]*/
+    $('.js-show-modal1').on('click', function (e) {
+        e.preventDefault();
+        var idToSearch = $(this).data('productid');
 
-
-    //$('.js-show-modal1').on('click', function (e) {
-    //    e.preventDefault();
-    //    $.ajax({
-    //        data: { id: 3 },
-    //        url: 'Home/SingleItemToJson',
-    //        success: function (res) {
-    //            console.log(res);
-    //            $('.js-modal1').addClass('show-modal1');
-    //        },
-    //        error: function (res) { console.log(res); }
-    //    });
-    //});
+        $.ajax({
+            data: { id: idToSearch },
+            url: 'Home/SingleItemToToModal',
+            success: function (res) {
+                $('.js-modal1').addClass('show-modal1');
+                $('#ModalArea').html(res);
+            },
+            error: function (res) { console.log(res); }
+        });
+    });
 
     $('.js-hide-modal1').on('click', function () {
         $('.js-modal1').removeClass('show-modal1');
