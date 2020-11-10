@@ -135,8 +135,15 @@
     // filter items on button click
     $filter.each(function () {
         $filter.on('click', 'button', function () {
-            var filterValue = $(this).attr('data-filter');
-            $topeContainer.isotope({ filter: filterValue });
+            var sortValue = $(this).attr('data-filter');
+            var orderValue = $(this).attr('data-order');
+
+            var isAscending = (orderValue == 'asc');
+            var newDirection = (isAscending) ? 'desc' : 'asc';
+
+            $topeContainer.isotope({ sortBy: sortValue, sortAscending: isAscending });
+
+            $(this).attr('data-order', newDirection);
         });
 
     });
@@ -151,6 +158,10 @@
                 animationEngine: 'best-available',
                 masonry: {
                     columnWidth: '.isotope-item'
+                },
+                getSortData: {
+                    name: '.name',
+                    price: '.price parseInt',
                 }
             });
         });

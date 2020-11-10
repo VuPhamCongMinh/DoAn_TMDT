@@ -178,16 +178,17 @@ namespace DoAnTMDT.Controllers
 
         public IActionResult CheckoutSuccess()
         {
-            return View("Privacy");
+            return View(nameof(Index));
         }
         public IActionResult CheckoutFail()
         {
             return View("Error");
         }
 
-        public IActionResult Privacy()
+        public IActionResult Cart()
         {
-            return View();
+            var giohang = _context.DisplayCart(HttpContext, _cookieServices);
+            return View(giohang);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
