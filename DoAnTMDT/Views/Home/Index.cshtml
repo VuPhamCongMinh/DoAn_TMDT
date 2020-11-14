@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Product>
-
-@{
+﻿@{
     ViewData["Title"] = "Trang Chủ - Đồ Án TMĐT";
 }
 
@@ -37,7 +35,7 @@
                 <i class="zmdi zmdi-search"></i>
             </button>
 
-            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" name="search-product" placeholder="Search">
+            <input class="mtext-107 cl2 size-114 plh2 p-r-15" type="text" id="select" name="search-product" placeholder="Search">
         </div>
     </div>
 </div>
@@ -45,7 +43,7 @@
 <div class="row isotope-grid">
     @{
         <div id="productSection">
-            <partial name="ProductView/_ShowProduct" model="Model" />
+            @await Component.InvokeAsync("DisplayProducts")
         </div>
     }
 </div>
@@ -58,7 +56,68 @@
 
 <!-- Load more -->
 <div class="flex-c-m flex-w w-full p-t-45">
-    <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+    <a id="loadmoreBtn" href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
         Load More
     </a>
 </div>
+
+
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js" integrity="sha512-HWlJyU4ut5HkEj0QsK/IxBCY55n5ZpskyjVlAoV9Z7XQwwkqXoYdCIC93/htL3Gu5H3R4an/S0h2NXfbZk3g7w==" crossorigin="anonymous"></script>
+
+    <script>
+            $(function () {
+                $("#select").typeahead({
+                    minLength: 3,
+                    source: function (request, response) {
+                        $.ajax({
+                            url: "@Url.Action("ItemToJson", "Home")",
+                            data: {
+                                "s": request
+                            },
+                            type: "GET",
+                            contentType: "json",
+                            success: function (data) {
+                                items = [];
+                                map = {};
+                                $.each(data, function (i, item) {
+                                    items.push(item);
+                                });
+                                response(items);
+                            },
+                            error: function (response) {
+                                alert(response.responseText);
+                            },
+                            failure: function (response) {
+                                alert(response.responseText);
+                            }
+                        });
+                    },
+                    highlighter: Object,
+                    displayText: function (item) {
+                        let imgPath = item.imagePath.replace("~/", "");
+                        return `<img src="${imgPath}" class="w-25"/>` + '<span class="dropdown-item-extra ml-4">' + item.productName + '</span>'
+                    },
+                    afterSelect: function (data) {
+                        $("#select").val(data.productName).change();
+                    }
+                });
+
+                var currentPage = 1;
+                $('#loadmoreBtn').click(function (e) {
+                    $.post("@Url.Action("DisplayProduct", "Home")", { "id": currentPage + 1 },
+                        function (data) {
+                            currentPage++;
+                            var $topeContainer = $('.isotope-grid');
+                            var $content = $(`${data}`);
+                            $content.imagesLoaded(function () {
+                            $topeContainer.append($content).isotope('appended', $content);
+                            });
+                        });
+                    e.preventDefault();
+                });
+    });
+    </script>
+} 

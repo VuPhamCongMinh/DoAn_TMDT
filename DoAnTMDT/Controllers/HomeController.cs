@@ -32,14 +32,14 @@ namespace DoAnTMDT.Controllers
 
         public JsonResult ItemToJson(string s)
         {
-            var list = _context.ProductTable.Where(x=>x.ProductName.StartsWith(s)).ToList();
+            var list = _context.ProductTable.Where(x => x.ProductName.StartsWith(s)).ToList();
             return Json(list);
         }
 
         public IActionResult SingleItemToToModal(int id)
         {
             var returnItem = _context.ProductTable.Find(id);
-            return PartialView("_ShowModal",returnItem);
+            return PartialView("_ShowModal", returnItem);
         }
 
         public IActionResult SingleItemToJson(int id)
@@ -50,7 +50,14 @@ namespace DoAnTMDT.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.ProductTable.ToList());
+            return View();
+        }
+
+        public IActionResult DisplayProduct(int id = 1)
+        {
+            int itemToDisplay = 8;
+            int itemToSkip = (id - 1) * itemToDisplay;
+            return ViewComponent("DisplayProducts",new { currentPage = id });
         }
 
         public PartialViewResult SortPriceAsc()

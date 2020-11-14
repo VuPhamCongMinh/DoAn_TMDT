@@ -152,7 +152,6 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\I
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DisplayCartTotal\_TotalCartItem.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ProductView\_ShowCart.cshtml.g.cs
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ProductView\_ShowProduct.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\_ViewImports.cshtml.g.cs
@@ -169,3 +168,4 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.genruntim
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShowModal.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\CountCartTotal\_CountTotalCartItem.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\Cart.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DisplayProducts\_ShowProduct.cshtml.g.cs
