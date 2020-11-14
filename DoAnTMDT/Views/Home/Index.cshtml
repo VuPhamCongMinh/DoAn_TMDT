@@ -105,6 +105,10 @@
                     }
                 });
 
+
+
+                //Sự kiện click của nút loadmore khi bấm vào sẽ gửi html trả về vào isotome-grid
+                //isotome-grid là container chứa các isotome-item
                 var currentPage = 1;
                 $('#loadmoreBtn').click(function (e) {
                     $.post("@Url.Action("DisplayProduct", "Home")", { "id": currentPage + 1 },
@@ -117,6 +121,17 @@
                             });
                         });
                     e.preventDefault();
+                });
+
+                //sự kiện scroll tham khảo từ : https://dev.to/sakun/a-super-simple-implementation-of-infinite-scrolling-3pnd
+                $(window).on("scroll", function () {
+                    //get vị trí scroll hiện tại và vị trí của scroll hiện tại so với đỉnh màn hình
+                    var scrollHeight = $(document).height();
+                    var scrollPos = $(window).height() + $(window).scrollTop();
+                    //sự kiện sẽ xảy ra khi cách đáy browser 500px
+                    if (((scrollHeight - 500) >= scrollPos) / scrollHeight == 0) {
+                        $('#loadmoreBtn').click();
+                    }
                 });
     });
     </script>
