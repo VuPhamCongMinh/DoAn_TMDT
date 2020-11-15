@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Cart>
 @{
     ViewData["Title"] = "Giỏ Hàng - Đồ Án TMĐT";
+    double sum = 0;
 }
 
 
@@ -46,6 +47,7 @@
                                             </div>
                                         </td>
                                         <td class="column-5">$ @(cartDetail.Product.ProductPrice * cartDetail.Quantity)</td>
+                                        @{ sum += @cartDetail.Quantity * @cartDetail.Product.ProductPrice;}
                                     </tr>
                                 }
                             }
@@ -84,7 +86,7 @@
 
                         <div class="size-209">
                             <span class="mtext-110 cl2">
-                                $79.65
+                                $@sum
                             </span>
                         </div>
                     </div>
@@ -142,7 +144,7 @@
 
                         <div class="size-209 p-t-1">
                             <span class="mtext-110 cl2">
-                                $79.65
+                                $@sum
                             </span>
                         </div>
                     </div>

@@ -35,7 +35,7 @@ namespace DoAnTMDT.Controllers
         }
         public IActionResult Login()
         {
-            return View();
+            return PartialView("_ShowLoginForm");
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginRegisterViewModel vm)

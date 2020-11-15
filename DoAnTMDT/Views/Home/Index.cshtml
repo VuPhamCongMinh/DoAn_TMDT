@@ -42,9 +42,7 @@
 
 <div class="row isotope-grid">
     @{
-        <div id="productSection">
             @await Component.InvokeAsync("DisplayProducts")
-        </div>
     }
 </div>
 
@@ -98,15 +96,12 @@
                     highlighter: Object,
                     displayText: function (item) {
                         let imgPath = item.imagePath.replace("~/", "");
-                        return `<img src="${imgPath}" class="w-25"/>` + '<span class="dropdown-item-extra ml-4">' + item.productName + '</span>'
+                        return `<img src="${imgPath}" class="w-25"/>` + '<span class="dropdown-item-extra ml-4 stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6 name">' + item.productName + '</span>'
                     },
                     afterSelect: function (data) {
                         $("#select").val(data.productName).change();
                     }
                 });
-
-
-
                 //Sự kiện click của nút loadmore khi bấm vào sẽ gửi html trả về vào isotome-grid
                 //isotome-grid là container chứa các isotome-item
                 var currentPage = 1;
@@ -115,22 +110,25 @@
                         function (data) {
                             currentPage++;
                             var $topeContainer = $('.isotope-grid');
-                            var $content = $(`${data}`);
+                            var $content = $(data);
                             $content.imagesLoaded(function () {
-                            $topeContainer.append($content).isotope('appended', $content);
+                            $topeContainer.append($content).isotope('insert', $content);
                             });
                         });
                     e.preventDefault();
                 });
-
                 //sự kiện scroll tham khảo từ : https://dev.to/sakun/a-super-simple-implementation-of-infinite-scrolling-3pnd
+                var recentScroll = false;
                 $(window).on("scroll", function () {
                     //get vị trí scroll hiện tại và vị trí của scroll hiện tại so với đỉnh màn hình
                     var scrollHeight = $(document).height();
                     var scrollPos = $(window).height() + $(window).scrollTop();
                     //sự kiện sẽ xảy ra khi cách đáy browser 500px
-                    if (((scrollHeight - 500) >= scrollPos) / scrollHeight == 0) {
+                    if (((scrollHeight - 500) >= scrollPos) / scrollHeight == 0 && !recentScroll) {
                         $('#loadmoreBtn').click();
+
+                        recentScroll = true;
+                        window.setTimeout(() => { recentScroll = false; }, 3000)
                     }
                 });
     });

@@ -135,7 +135,6 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\runtimes\win-x86\n
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csprojAssemblyReference.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.AssemblyInfoInputs.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.AssemblyInfo.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csproj.CoreCompileInputs.cache
@@ -145,7 +144,6 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.RazorAsse
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.TagHelpers.input.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.TagHelpers.output.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.RazorCoreGenerate.cache
-D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Account\Login.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\Checkout.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
@@ -170,3 +168,5 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\Cart.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DisplayProducts\_ShowProduct.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csprojAssemblyReference.cache
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShowLoginForm.cshtml.g.cs

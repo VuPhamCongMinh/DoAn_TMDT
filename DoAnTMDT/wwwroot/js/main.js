@@ -280,7 +280,7 @@
 
     /*==================================================================
     [ Show modal1 ]*/
-    $('.js-show-modal1').on('click', function (e) {
+    $(document).on('click', '.js-show-modal1', function (e) {
         e.preventDefault();
         var idToSearch = $(this).data('productid');
 
@@ -299,6 +299,19 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    $("#loginBtn").on('click', function (e) {
+        e.preventDefault();
+        
+        $.ajax({
+            type:'get',
+            url: 'Account/Login',
+            success: function (res) {
+                $('.js-modal1').addClass('show-modal1');
+                $('#ModalArea').html(res);
+            },
+            error: function (res) { console.log(res); }
+        });
+    });
 
 
 })(jQuery);
