@@ -1,15 +1,4 @@
-﻿*, *:before, *:after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    background: #ededed;
-}
-
-input, button {
+﻿input, button {
     border: none;
     outline: none;
     background: none;
@@ -277,21 +266,4 @@ input {
 .cont.s--signup .sign-up {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-}
-
-.icon-link {
-    position: absolute;
-    left: 5px;
-    bottom: 5px;
-    width: 32px;
-}
-
-    .icon-link img {
-        width: 100%;
-        vertical-align: top;
-    }
-
-.icon-link--twitter {
-    left: auto;
-    right: 5px;
 }
