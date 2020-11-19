@@ -35,13 +35,13 @@
                                         <td class="column-3">$ @cartDetail.Product.ProductPrice</td>
                                         <td class="column-4">
                                             <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                                <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m" data-id="@cartDetail.ProductID" data-size="@cartDetail.Size">
                                                     <i class="fs-16 zmdi zmdi-minus"></i>
                                                 </div>
 
                                                 <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="@cartDetail.Quantity">
 
-                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m" data-id="@cartDetail.ProductID" data-size="@cartDetail.Size">
                                                     <i class="fs-16 zmdi zmdi-plus"></i>
                                                 </div>
                                             </div>
@@ -159,3 +159,73 @@
 </form>
 
 
+
+@section Scripts {
+    <script>
+        $('.btn-num-product-down').on('click', function () {
+            var numProduct = Number($(this).prev().val());
+            if (numProduct > 0) $(this).next().val(numProduct - 1);
+
+            var idToUp = ($(this).data('id'));
+            var sizeToUp = ($(this).data('size'));
+
+            $.ajax({
+                data: { itemID: idToUp, size: sizeToUp },
+                url: '@Url.Action("RemoveCart")',
+                success: function (res) {
+                    $.ajax({
+                        url: '@Url.Action("ReloadCountTotal")',
+                        success: function (data) {
+                            $("#cartCount").html(data);
+                        }
+                    });
+                    //Re-render Giỏ hàng
+                    $.ajax({
+                        url: '@Url.Action("ReloadDisplayCartTotal")',
+                        success: function (data) {
+                            $("#cartBar").html(data);
+                        }
+                    });
+                    //#endregion
+                },
+                error: function (res) { console.log(res); }
+            });
+
+
+
+        });
+
+        $('.btn-num-product-up').on('click', function () {
+            var numProduct = Number($(this).prev().val());
+            $(this).prev().val(numProduct + 1);
+
+            var idToUp = ($(this).data('id'));
+            var sizeToUp = ($(this).data('size'));
+
+            $.ajax({
+                data: { itemID: idToUp, size: sizeToUp, quantity: 1 },
+                type: 'POST',
+                url: '@Url.Action("AddCart")',
+                success: function (res) {
+                    //#region Code re-render lại giỏ hàng trên navbar khi thêm thành công
+                //Re-render Bộ đếm
+                $.ajax({
+                url: '@Url.Action("ReloadCountTotal", "Home")',
+                    success: function (data) {
+                        parent.$("#cartCount").html(data);
+                }
+                });
+                //Re-render Giỏ hàng
+                $.ajax({
+                    url: '@Url.Action("ReloadDisplayCartTotal", "Home")',
+                    success: function (data) {
+                        parent.$("#cartBar").html(data);
+                    }
+                });
+            //#endregion
+                },
+                error: function (res) { console.log(res); }
+            });
+        });
+    </script>
+}

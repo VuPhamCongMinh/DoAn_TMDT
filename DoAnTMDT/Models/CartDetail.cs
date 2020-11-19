@@ -15,6 +15,7 @@ namespace DoAnTMDT.Models
         [ForeignKey("Product")]
         public int ProductID { get; set; }
         public int Quantity { get; set; }
+        public string Size { get; set; }
 
         public Product Product { get; set; }
         [ForeignKey("Cart")]

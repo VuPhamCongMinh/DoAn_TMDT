@@ -29,7 +29,15 @@ namespace DoAnTMDT.Controllers
             _clientID = config["paypal:clientId"];
             _secretID = config["paypal:clientSecret"];
         }
-
+        public IActionResult ReloadCountTotal()
+        {
+            return ViewComponent("CountCartTotal");
+        }
+        public IActionResult ReloadDisplayCartTotal()
+        {
+            return ViewComponent("DisplayCartTotal");
+        }
+        #region Các chức năng hiển thị = partial view, view components
         public JsonResult ItemToJson(string s)
         {
             var list = _context.ProductTable.Where(x => x.ProductName.StartsWith(s)).ToList();
@@ -47,17 +55,16 @@ namespace DoAnTMDT.Controllers
             var returnItem = _context.ProductTable.Find(id);
             return Json(returnItem);
         }
+        #endregion
 
         public IActionResult Index()
         {
             return View();
         }
-
+        #region Chức năng Sort,Hiển thị danh sách SP, Trang giỏ hàng
         public IActionResult DisplayProduct(int id = 1)
         {
-            int itemToDisplay = 8;
-            int itemToSkip = (id - 1) * itemToDisplay;
-            return ViewComponent("DisplayProducts",new { currentPage = id });
+            return ViewComponent("DisplayProducts", new { currentPage = id });
         }
 
         public PartialViewResult SortPriceAsc()
@@ -74,15 +81,22 @@ namespace DoAnTMDT.Controllers
             var dsdonhangchuathanhtoan = _context.DisplayCart(HttpContext, _cookieServices);
             return PartialView("ProductView/_ShowCart", dsdonhangchuathanhtoan);
         }
-        //public PartialViewResult DisplayCartTotal()
-        //{
-        //    ViewBag.Total = _context.DisplayCart(HttpContext, _cookieServices).Count();
-        //    return PartialView("_TotalCartItem");
-        //}
+        #endregion
+
         [Authorize]
-        public IActionResult AddCart(int? itemID)
+        public IActionResult AddCart(int itemID, string size, byte quantity)
         {
-            if (_context.AddToCart(HttpContext, itemID))
+            if (_context.AddToCart(HttpContext, itemID, size, quantity))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(nameof(Error));
+        }
+
+        [Authorize]
+        public IActionResult RemoveCart(int itemID, string size, byte quantity = 1)
+        {
+            if (_context.RemoveFromCart(HttpContext, itemID, size, quantity))
             {
                 return RedirectToAction(nameof(Index));
             }

@@ -1,4 +1,4 @@
-
+﻿
 (function ($) {
     "use strict";
 
@@ -206,34 +206,38 @@
 
     /*==================================================================
     [ Cart ]*/
-    $('.js-show-cart').on('click', function () {
+    $(document).on('click', '.js-show-cart', function () {
         $('.js-panel-cart').addClass('show-header-cart');
     });
 
-    $('.js-hide-cart').on('click', function () {
+    $(document).on('click', '.js-hide-cart', function () {
         $('.js-panel-cart').removeClass('show-header-cart');
     });
 
+    //$('.js-show-cart').on('click', function () {
+    //    $('.js-panel-cart').addClass('show-header-cart');
+    //});
+
+    //$('.js-hide-cart').on('click', function () {
+    //    $('.js-panel-cart').removeClass('show-header-cart');
+    //});
+
     /*==================================================================
     [ Cart ]*/
-    $('.js-show-sidebar').on('click', function () {
+    $(document).on('click', '.js-show-sidebar', function () {
         $('.js-sidebar').addClass('show-sidebar');
     });
 
-    $('.js-hide-sidebar').on('click', function () {
+    $(document).on('click', '.js-hide-sidebar', function () {
         $('.js-sidebar').removeClass('show-sidebar');
     });
 
-    ///*==================================================================
-    //[ +/- num product ]*/
-    //$('.btn-num-product-down').on('click', function () {
-    //    var numProduct = Number($(this).next().val());
-    //    if (numProduct > 0) $(this).next().val(numProduct - 1);
+    //$('.js-show-sidebar').on('click', function () {
+    //    $('.js-sidebar').addClass('show-sidebar');
     //});
 
-    //$('.btn-num-product-up').on('click', function () {
-    //    var numProduct = Number($(this).prev().val());
-    //    $(this).prev().val(numProduct + 1);
+    //$('.js-hide-sidebar').on('click', function () {
+    //    $('.js-sidebar').removeClass('show-sidebar');
     //});
 
     /*==================================================================
@@ -299,11 +303,40 @@
         $('.js-modal1').removeClass('show-modal1');
     });
 
+    $(document).on('click', '.header-cart-item-img', function (e) {
+        var idToDelete = $(this).data('productid');
+        var sizeToDelete = $(this).data('size');
+
+        $.ajax({
+            data: { itemID: idToDelete, size: sizeToDelete },
+            url: 'Home/RemoveCart',
+            success: function (res) {
+                $.ajax({
+                    url: 'Home/ReloadCountTotal',
+                    success: function (data) {
+                        $("#cartCount").html(data);
+                    }
+                });
+                //Re-render Giỏ hàng
+                $.ajax({
+                    url: 'Home/ReloadDisplayCartTotal',
+                    success: function (data) {
+                        $("#cartBar").html(data);
+                    }
+                });
+                //#endregion
+            },
+            error: function (res) { console.log(res); }
+        });
+
+        e.preventDefault();
+    });
+
     $("#loginBtn").on('click', function (e) {
         e.preventDefault();
-        
+
         $.ajax({
-            type:'get',
+            type: 'get',
             url: 'Account/Login',
             success: function (res) {
                 $('.js-modal1').addClass('show-modal1');

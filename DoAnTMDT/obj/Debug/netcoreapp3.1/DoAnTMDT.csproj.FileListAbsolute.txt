@@ -170,3 +170,4 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\DoAnTMDT.csprojAssemblyReference.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_ShowLoginForm.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\DisplayCheckoutCartTotal\_CheckoutTotalCartItem.cshtml.g.cs

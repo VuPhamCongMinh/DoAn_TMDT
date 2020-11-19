@@ -5,6 +5,28 @@
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
+.fb-btn {
+    display: block;
+    margin: 0 auto;
+    width: 260px;
+    height: 36px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.submit {
+    display: block;
+    margin: 0 auto;
+    width: 260px;
+    height: 36px;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
 .tip {
     font-size: 20px;
     margin: 40px auto 50px;
@@ -49,16 +71,6 @@
     transform: translate3d(-640px, 0, 0);
 }
 
-button {
-    display: block;
-    margin: 0 auto;
-    width: 260px;
-    height: 36px;
-    border-radius: 30px;
-    color: #fff;
-    font-size: 15px;
-    cursor: pointer;
-}
 
 .img {
     overflow: hidden;
