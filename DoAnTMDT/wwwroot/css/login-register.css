@@ -16,7 +16,7 @@
     cursor: pointer;
 }
 
-.submit {
+.normal-button {
     display: block;
     margin: 0 auto;
     width: 260px;
@@ -242,7 +242,7 @@ input {
     color: #cfcfcf;
 }
 
-.submit {
+.normal-button {
     margin-top: 40px;
     margin-bottom: 20px;
     background: #d4af7a;

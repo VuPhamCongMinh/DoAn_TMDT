@@ -149,14 +149,14 @@ namespace DoAnTMDT.Controllers
                             }
                         },
                         ItemList = itemList,
-                        Description = "Invoice #001",
-                        InvoiceNumber = "INV0001"
+                        Description = "Hóa đơn 696",
+                        InvoiceNumber = "696969"
                     }
                 },
                 RedirectUrls = new RedirectUrls()
                 {
-                    CancelUrl = Url.Action(nameof(CheckoutFail), nameof(HomeController), null, protocol: Request.Scheme),
-                    ReturnUrl = Url.Action(nameof(CheckoutSuccess), nameof(HomeController), null, protocol: Request.Scheme),
+                    CancelUrl = Url.Action(nameof(CheckoutFail), "Home", null, protocol: Request.Scheme),
+                    ReturnUrl = Url.Action(nameof(CheckoutSuccess), "Home", new { id = id }, protocol: Request.Scheme),
                 },
                 Payer = new Payer()
                 {
@@ -197,9 +197,20 @@ namespace DoAnTMDT.Controllers
             }
         }
 
-        public IActionResult CheckoutSuccess()
+        public IActionResult CheckoutSuccess(string id)
         {
-            return View(nameof(Index));
+            try
+            {
+                _context.CartTable.Find(id).IsPayed = true;
+                _context.SaveChanges();
+                TempData["CheckoutSuccess"] = true;
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+            return RedirectToAction(nameof(Index));
         }
         public IActionResult CheckoutFail()
         {

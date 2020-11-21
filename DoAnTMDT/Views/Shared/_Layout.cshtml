@@ -61,16 +61,15 @@
                         </a>
 
                         <a href="#" id="loginBtn" class="flex-c-m trans-04 p-lr-25">
-                           @userName
+                            @userName
                         </a>
 
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            EN
-                        </a>
-
-                        <a href="#" class="flex-c-m trans-04 p-lr-25">
-                            USD
-                        </a>
+                        @if (User.Identity.Name != null)
+                        {
+                    <form method="post" asp-controller="account" asp-action="Logout" id="logoutForm">
+                        <a href="#" class="flex-c-m trans-04 p-lr-25" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                    </form>
+                        }
                     </div>
                 </div>
             </div>

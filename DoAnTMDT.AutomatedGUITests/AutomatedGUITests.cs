@@ -1,6 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 using System;
+using System.Threading;
 using Xunit;
 
 namespace DoAnTMDT.AutomatedGUITests
@@ -13,6 +15,7 @@ namespace DoAnTMDT.AutomatedGUITests
         public AutomatedGUITests()
         {
             _driver = new ChromeDriver();
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             _loginPage = new LoginPage(_driver);
         }
 
@@ -37,10 +40,21 @@ namespace DoAnTMDT.AutomatedGUITests
 
             //Implement lại nhưng theo Page Object Model Design Pattern
             _loginPage.DieuHuong();
+            _loginPage.MoFormDangKyDangNhap();
             _loginPage.NhapThongTinVaoUsernameTextBox("minhdeptrai");
             _loginPage.NhapThongTinVaoPasswordTextBox("123456");
             _loginPage.ClickVaoNutDangNhap();
-            Assert.True(_loginPage.IsDangNhapThanhCong);
+            Thread.Sleep(1000); //Đợi 1s để đợi chức năng đăng nhập xử lý xong
+            Assert.True(_loginPage.HienThiManHinhDangNhapThanhCong);
+        }
+
+        [Fact]
+        public void LogoutTest()
+        {
+            LoginTest();
+            _loginPage.ClickVaoNutDangXuat();
+            //Thread.Sleep(1000); //Đợi 1s để đợi chức năng đăng xuất xử lý xong
+            Assert.True(_loginPage.HienThiManHinhDangXuatThanhCong);
         }
     }
 }

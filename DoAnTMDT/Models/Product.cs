@@ -272,7 +272,10 @@ namespace DoAnTMDT.Models
                         if (bienkiemtraxemsanphamdodacotronggiohangchua.Quantity == 0)
                         {
                             var chitietdonhangsexoa = _context.CartDetailTable.Where(x => x.ProductID == itemID && x.Size == size).FirstOrDefault();
-                            _context.Remove(chitietdonhangsexoa);
+                            if (_context.CartTable.Find(chitietdonhangsexoa.CartID) != null)
+                            {
+                                _context.Remove(chitietdonhangsexoa);
+                            }
                         }
                         _context.SaveChanges();
                         return true;

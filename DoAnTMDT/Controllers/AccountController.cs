@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.WebSockets;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using DoAnTMDT.DbContext;
-using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using DoAnTMDT.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using static DoAnTMDT.Sevices.EmailServices;
 
 namespace DoAnTMDT.Controllers
@@ -59,12 +51,12 @@ namespace DoAnTMDT.Controllers
                     }
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError(string.Empty, "Bạn hãy kiểm tra lại mật khẩu hoặc tên tài khoản hoặc chắc rằng mình đã xác nhận email");
             }
 
-            return View(vm);
+            return StatusCode(69);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
@@ -83,6 +75,7 @@ namespace DoAnTMDT.Controllers
         {
             IdentityUser identity = new IdentityUser { UserName = vm.UserName };
             ModelState.Remove("RememberMe");
+            ModelState.Remove("PasswordConfirm");
             if (ModelState.IsValid)
             {
                 var result = await _userManager.CreateAsync(identity, vm.Password);
@@ -98,14 +91,9 @@ namespace DoAnTMDT.Controllers
                     //await _signInManager.PasswordSignInAsync(new IdentityUser { UserName = vm.UserName }, vm.Password, isPersistent: false, lockoutOnFailure: false);
                     return RedirectToAction("Index", "Home");
                 }
-
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
             }
 
-            return View(vm);
+            return StatusCode(69);
         }
 
         public async Task<IActionResult> ConfirmEmail(string username, string token)

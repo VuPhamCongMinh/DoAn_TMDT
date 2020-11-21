@@ -92,6 +92,6 @@ D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\
 D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.genruntimeconfig.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\bin\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.pdb
 D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\bin\Debug\netcoreapp3.1\WebDriver.dll
-D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.csproj.CoreCompileInputs.cache
 D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.dll
 D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.pdb
+D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.csproj.CoreCompileInputs.cache
