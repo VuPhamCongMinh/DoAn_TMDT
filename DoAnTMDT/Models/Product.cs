@@ -49,20 +49,6 @@ namespace DoAnTMDT.Models
         {
             return _context.ProductTable.OrderBy(x => x.ProductName).ToList();
         }
-        internal static IEnumerable<Cart> DisplayCart(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices)
-        {
-            string cookie = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
-            if (cookie != null)
-            {
-                //_cookieServices.AddCookie(httpContext, "CART_INFORMATION", httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-                //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
-                //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
-                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => !x.IsPayed).ToList();
-                return dsdonhangchuathanhtoan;
-            }
-            return null;
-        }
-
         internal static bool AddToCart(this DoAnTMDT_Entities _context, HttpContext httpContext, int itemID, string size, byte quantity = 1)
         {
             Product bienkiemtraxemcosanphamtrongdb = _context.ProductTable.Find(itemID);
@@ -131,6 +117,7 @@ namespace DoAnTMDT.Models
                     else
                     {
                         byte calculatedQuantity = 0;
+                        bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.First().Cart.OderDate = DateTime.Now;
                         if (size == "small")
                         {
                             if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity - quantity < 0)
@@ -181,7 +168,7 @@ namespace DoAnTMDT.Models
                 }
                 else
                 {
-                    Cart cartDetail = new Cart { CartID = guidKey, UserID = cookieKey };
+                    Cart cartDetail = new Cart { CartID = guidKey, UserID = cookieKey,OderDate = DateTime.Now };
                     CartDetail detail;
                     byte calculatedQuantity = 0;
                     if (size == "small")

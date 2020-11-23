@@ -11,6 +11,8 @@ using PayPal.Core;
 using PayPal.v1.Payments;
 using Microsoft.EntityFrameworkCore;
 using BraintreeHttp;
+using System;
+using DoAnTMDT.ViewModels;
 
 namespace DoAnTMDT.Controllers
 {
@@ -196,12 +198,13 @@ namespace DoAnTMDT.Controllers
                 return RedirectToAction(nameof(CheckoutFail));
             }
         }
-
         public IActionResult CheckoutSuccess(string id)
         {
             try
             {
-                _context.CartTable.Find(id).IsPayed = true;
+                var giohangthanhtoanthanhcong = _context.CartTable.Find(id);
+                giohangthanhtoanthanhcong.IsPayed = true;
+                giohangthanhtoanthanhcong.PayDate = DateTime.Now;
                 _context.SaveChanges();
                 TempData["CheckoutSuccess"] = true;
             }
@@ -212,15 +215,31 @@ namespace DoAnTMDT.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
         public IActionResult CheckoutFail()
         {
             return View("Error");
         }
-
         public IActionResult Cart()
         {
             var giohang = _context.DisplayCart(HttpContext, _cookieServices);
             return View(giohang);
+        }
+        public IActionResult TrackCart()
+        {
+            TrackCartViewModel donhang = new TrackCartViewModel(_context.DisplayPayedCart(HttpContext, _cookieServices), _context.DisplayCart(HttpContext, _cookieServices));
+            return View(donhang);
+        }
+
+        [HttpPost]
+        public IActionResult ConfirmCompleted(string id)
+        {
+            if (_context.ConfirmOrder(HttpContext, _cookieServices, id))
+            {
+                return Ok();
+            }
+            return BadRequest();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

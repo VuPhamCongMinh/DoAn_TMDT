@@ -22,7 +22,7 @@ namespace DoAnTMDT.Sevices
                 }
                 else
                 {
-                    cookieOptions = new CookieOptions { Expires = DateTime.Now.AddDays(1) };
+                    cookieOptions = new CookieOptions { Expires = DateTime.Now.AddDays(7) };
                 }
                 context.Response.Cookies.Append(key, value, cookieOptions);
             }

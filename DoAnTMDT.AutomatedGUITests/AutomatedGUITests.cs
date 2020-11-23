@@ -53,7 +53,6 @@ namespace DoAnTMDT.AutomatedGUITests
         {
             LoginTest();
             _loginPage.ClickVaoNutDangXuat();
-            //Thread.Sleep(1000); //Đợi 1s để đợi chức năng đăng xuất xử lý xong
             Assert.True(_loginPage.HienThiManHinhDangXuatThanhCong);
         }
     }
