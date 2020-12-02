@@ -302,3 +302,10 @@ $RECYCLE.BIN/
 
 DoAnTMDT/obj
 .vs/
+
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
