@@ -6087,19 +6087,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+    "C:\\Users\\Admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT.AutomatedGUITests\\DoAnTMDT.AutomatedGUITests.csproj",
+      "projectUniqueName": "D:\\Noi chua chat xam cua tui\\DoAnTMDT.AutomatedGUITests\\DoAnTMDT.AutomatedGUITests.csproj",
       "projectName": "DoAnTMDT.AutomatedGUITests",
-      "projectPath": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT.AutomatedGUITests\\DoAnTMDT.AutomatedGUITests.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT.AutomatedGUITests\\obj\\",
+      "projectPath": "D:\\Noi chua chat xam cua tui\\DoAnTMDT.AutomatedGUITests\\DoAnTMDT.AutomatedGUITests.csproj",
+      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+      "outputPath": "D:\\Noi chua chat xam cua tui\\DoAnTMDT.AutomatedGUITests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6163,7 +6163,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
   }
