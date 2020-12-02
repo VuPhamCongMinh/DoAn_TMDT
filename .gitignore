@@ -308,6 +308,7 @@ DoAnTMDT/obj
 _ReSharper.*
 bin
 obj
+obj/Debug/netcoreapp3.1
 packages
 config
 v16
