@@ -356,3 +356,13 @@ C:\Users\ACER\Source\Repos\DoAn_TMDT\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\View
 C:\Users\ACER\Source\Repos\DoAn_TMDT\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteUser.cshtml.g.cs
 C:\Users\ACER\Source\Repos\DoAn_TMDT\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteProduct.cshtml.g.cs
 C:\Users\ACER\source\repos\DoAn_TMDT\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddProduct.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\AddProduct.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteProduct.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DeleteUser.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DetailOrder.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\DetailProduct.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\EditProduct.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Order.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Product.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\User.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Admin_layout.cshtml.g.cs
