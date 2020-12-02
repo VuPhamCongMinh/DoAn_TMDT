@@ -309,3 +309,5 @@ _ReSharper.*
 bin
 obj
 packages
+config
+v16
