@@ -85,6 +85,12 @@ namespace DoAnTMDT.Controllers
         }
         #endregion
 
+        public IActionResult About()
+        {
+
+            return View();
+        }
+
         [Authorize]
         public IActionResult AddCart(int itemID, string size, byte quantity)
         {

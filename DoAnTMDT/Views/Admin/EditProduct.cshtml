@@ -1,0 +1,62 @@
+﻿@model DoAnTMDT.Models.Product
+
+@{
+    ViewData["Title"] = "EditProduct";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+}
+
+<h1>Thông tin sản phẩm</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditProduct">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductID" />
+            <div class="form-group">
+                @*<label asp-for="ProductName" class="control-label"></label>*@
+                Tên sản phẩm
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="ProductPrice" class="control-label"></label>*@
+                Đơn giá
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="SmallSizeQuantity" class="control-label"></label>*@
+                Size nhỏ
+                <input asp-for="SmallSizeQuantity" class="form-control" />
+                <span asp-validation-for="SmallSizeQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="MediumSizeQuantity" class="control-label"></label>*@
+                Size vừa
+                <input asp-for="MediumSizeQuantity" class="form-control" />
+                <span asp-validation-for="MediumSizeQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @*<label asp-for="LargeSizeQuantity" class="control-label"></label>*@
+                Size lớn
+                <input asp-for="LargeSizeQuantity" class="form-control" />
+                <span asp-validation-for="LargeSizeQuantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label"> Hình ảnh</label>
+                @*<input asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>*@
+                <img src="@Url.Content(Model.ImagePath)" style="height:200px; width:200px" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Lưu lại" class="btn btn-primary" /> |
+                <a asp-action="Product">Quay lại!</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Product">Back to List</a>
+</div>*@
+

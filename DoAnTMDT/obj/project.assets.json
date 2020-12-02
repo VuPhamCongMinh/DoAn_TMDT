@@ -9149,19 +9149,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {}
+    "C:\\Users\\ACER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Noi chua chat xam cua tui\\DoAnTMDT\\DoAnTMDT.csproj",
+      "projectUniqueName": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT\\DoAnTMDT.csproj",
       "projectName": "DoAnTMDT",
-      "projectPath": "D:\\Noi chua chat xam cua tui\\DoAnTMDT\\DoAnTMDT.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\Noi chua chat xam cua tui\\DoAnTMDT\\obj\\",
+      "projectPath": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT\\DoAnTMDT.csproj",
+      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ACER\\Source\\Repos\\DoAn_TMDT\\DoAnTMDT\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9238,7 +9238,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

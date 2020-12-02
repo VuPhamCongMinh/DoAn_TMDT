@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DoAnTMDT.Models.User>
+
+@{
+    ViewData["Title"] = "User";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+}
+
+<h1>Danh sách khách hàng</h1>
+
+<p>
+    <a asp-action="Create">Tạo tài khoản khách hàng</a>
+</p>
+<table class="table" id="user_tbl">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Name)*@
+                Họ và tên
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Email)*@
+                Email
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Account)*@
+                Tên tài khoản
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.PassWord)
+                </th>*@
+            <th>
+                @*@Html.DisplayNameFor(model => model.Phone)*@
+                Số điện thoại
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Address)*@
+                Địa chỉ
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Account)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.PassWord)
+                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |*@
+                    <a asp-action="DeleteUser" asp-route-id="@item.UserID">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#user_tbl').DataTable();
+        });
+    </script>
+}

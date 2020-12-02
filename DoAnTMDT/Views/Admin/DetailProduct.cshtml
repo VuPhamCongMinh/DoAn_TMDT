@@ -1,0 +1,60 @@
+﻿@model DoAnTMDT.Models.Product
+
+@{
+    ViewData["Title"] = "DetailProduct";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+}
+
+<h1>Chi tiết sản phẩm</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.ProductName)*@
+            Tên sản phẩm
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductName)
+        </dd>
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.ProductPrice)*@
+            Đơn giá
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.SmallSizeQuantity)*@
+            Size nhỏ
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SmallSizeQuantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.MediumSizeQuantity)*@
+            Size vừa
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MediumSizeQuantity)
+        </dd>
+        <dt class="col-sm-2">
+            @*@Html.DisplayNameFor(model => model.LargeSizeQuantity)*@
+            Size lớn
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LargeSizeQuantity)
+   
+        </dd>
+        <dt class = "col-sm-2">
+            @*@Html.DisplayNameFor(model => model.ImagePath)*@
+            Hình ảnh
+        </dt>
+        <dd class = "col-sm-10">
+            <img src="@Url.Content(Model.ImagePath)" style="height:200px; width:200px" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="EditProduct" asp-route-id="@Model.ProductID" class="btn btn-dark">Chỉnh sửa</a> |
+    <a asp-action="Product">Quay lại!</a>
+</div>

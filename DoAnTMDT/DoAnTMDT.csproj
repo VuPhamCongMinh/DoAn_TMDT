@@ -1775,6 +1775,9 @@
     <None Include="wwwroot\vendor\fontawesome-free\webfonts\fa-solid-900.svg" />
     <None Include="wwwroot\vendor\fontawesome-free\webfonts\fa-solid-900.woff2" />
     <None Include="wwwroot\vendor\isotope\isotope.pkgd.min.js" />
+    <None Include="wwwroot\vendor\jquery-easing\jquery.easing.compatibility.js" />
+    <None Include="wwwroot\vendor\jquery-easing\jquery.easing.js" />
+    <None Include="wwwroot\vendor\jquery-easing\jquery.easing.min.js" />
     <None Include="wwwroot\vendor\jqueryui\external\jquery\jquery.js" />
     <None Include="wwwroot\vendor\jqueryui\jquery-ui.js" />
     <None Include="wwwroot\vendor\jqueryui\jquery-ui.min.js" />

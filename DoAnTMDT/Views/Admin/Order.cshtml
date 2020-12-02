@@ -1,0 +1,83 @@
+﻿@model IEnumerable<DoAnTMDT.Models.Cart>
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+}
+
+<h1>Danh sách hóa đơn</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>*@
+<table class="table" id="order_tbl">
+    <thead>
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.UserID)*@
+                Mã đơn hàng
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.UserID)*@
+                Mã khách hàng
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IsPayed)*@
+                Thanh toán
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.OderDate)*@
+                Ngày mua
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.PayDate)*@
+                Ngày trả tiền
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.IsCompleted)*@
+                Tình trạng ĐH
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CartID)
+                </td>
+                 <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPayed)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OderDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCompleted)
+                </td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "DetailOrder", new { id = item.CartID })
+                    @*<a asp-action="DetailOrder" asp-route-id="@Url.Action("DetailOrder", "Admin", new { id = item.CartID })">Xem chi tiết</a> |
+                        <a asp-action="Delete" asp-route-id="@item.CartID">Xóa</a>
+                        <button class="btn" style="background-color:#00ff90;margin-right:5px;border:0px;border-radius:5px;">@Html.ActionLink("Xem chi tiết đơn hàng", "DetailOrder", "Admin", new { id = item.CartID })</button>*@
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#order_tbl').DataTable();
+        });
+    </script>
+}

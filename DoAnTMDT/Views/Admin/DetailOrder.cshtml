@@ -1,0 +1,69 @@
+﻿@*@model DoAnTMDT.Models.CartDetail*@
+@model IEnumerable<DoAnTMDT.Models.CartDetail>
+@{
+    ViewData["Title"] = "DetailOrder";
+    Layout = "~/Views/Shared/Admin_layout.cshtml";
+    float sum = 0;
+}
+
+<h1>Chi tiết hóa đơn</h1>
+
+<table class="table" style="margin-bottom: 250px">
+    <tr>
+        <th>
+            <p>Tên sản phẩm</p>
+        </th>
+        <th>
+            <p>Số lượng</p>
+        </th>
+        <th>
+            <p>Size</p>
+        </th>
+        <th>
+            <p>Đơn giá</p>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Size)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Product.ProductPrice)
+            </td>
+            @{
+                sum += item.Product.ProductPrice;
+            }
+
+        </tr>
+        @*<tr>Tổng hóa đơn: @sum</tr>*@
+    }
+    <tr>
+        <td>
+            <a asp-action="Order">Quay lại!</a>
+        </td>
+        <td></td>
+        <td>
+            <p>Tổng hóa đơn:</p>
+        </td>
+        <td>
+            
+            <p>@sum.000 vnđ</p>
+        </td>
+    </tr>
+</table>
+
+@*<div>
+    <a asp-action="Edit" asp-route-id="@Model.CartDetailID">Edit</a> |
+    <a asp-action="Order">Quay lại!</a>
+</div>*@
+

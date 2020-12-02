@@ -15,6 +15,7 @@ namespace DoAnTMDT.Models
     {
         [Key]
         public string CartID { get; set; }
+        [ForeignKey("User")]
         public string UserID { get; set; }
         public bool IsPayed { get; set; }
         [DataType(DataType.DateTime)]
