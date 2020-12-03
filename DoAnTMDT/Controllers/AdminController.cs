@@ -31,7 +31,7 @@ namespace DoAnTMDT.Controllers
 
         public IActionResult User()
         {
-            return View(_context.User.ToList());
+            return View(_context.Users.ToList());
         }
 
         public IActionResult DetailOrder(string id)
@@ -105,18 +105,18 @@ namespace DoAnTMDT.Controllers
         [HttpGet]
         public ActionResult DeleteUser(string id)
         {
-            return View(_context.User.Where(s => s.UserID == id).FirstOrDefault());
+            return View(_context.Users.Where(s => s.Id == id).FirstOrDefault());
         }
 
         
         [HttpPost]
-        public ActionResult DeleteUser(string id, User cate)
+        public ActionResult DeleteUser(string id, ApplicationUser cate)
         {
             try
             {
                 // TODO: Add delete logic here
-                cate = _context.User.Where(s => s.UserID == id).FirstOrDefault();
-                _context.User.Remove(cate);
+                cate = _context.Users.Where(s => s.Id == id).FirstOrDefault();
+                _context.Users.Remove(cate);
                 _context.SaveChanges();
                 return RedirectToAction("User");
             }

@@ -1,4 +1,5 @@
 using DoAnTMDT.DbContext;
+using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +26,7 @@ namespace DoAnTMDT
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>(opt => opt.SignIn.RequireConfirmedEmail = true).AddEntityFrameworkStores<DoAnTMDT_Entities>().AddDefaultTokenProviders();
+            services.AddIdentity<ApplicationUser, IdentityRole>(opt => opt.SignIn.RequireConfirmedEmail = true).AddEntityFrameworkStores<DoAnTMDT_Entities>().AddDefaultTokenProviders();
             services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
             services.Configure<IdentityOptions>(options =>
             {

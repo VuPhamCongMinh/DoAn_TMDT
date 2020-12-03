@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DoAnTMDT.DbContext
 {
-    public class DoAnTMDT_Entities : IdentityDbContext<IdentityUser>
+    public class DoAnTMDT_Entities : IdentityDbContext<ApplicationUser>
     {
         public DoAnTMDT_Entities(DbContextOptions<DoAnTMDT_Entities> options) : base(options)
         {
@@ -19,6 +19,5 @@ namespace DoAnTMDT.DbContext
         public DbSet<Product> ProductTable { get; set; }
         public DbSet<Cart> CartTable { get; set; }
         public DbSet<CartDetail> CartDetailTable { get; set; }
-        public DbSet<User> User { get; set; }
     }
 }

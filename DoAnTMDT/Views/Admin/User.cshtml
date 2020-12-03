@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DoAnTMDT.Models.User>
+﻿@model IEnumerable<DoAnTMDT.Models.ApplicationUser>
 
 @{
     ViewData["Title"] = "User";
@@ -13,10 +13,6 @@
 <table class="table" id="user_tbl">
     <thead>
         <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Name)*@
-                Họ và tên
-            </th>
             <th>
                 @*@Html.DisplayNameFor(model => model.Email)*@
                 Email
@@ -44,13 +40,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Account)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 @*<td>
                         @Html.DisplayFor(modelItem => item.PassWord)
@@ -59,12 +52,12 @@
                     @Html.DisplayFor(modelItem => item.Phone)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address)
+                    @Html.DisplayFor(modelItem => item.Address) 
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |
                         <a asp-action="Details" asp-route-id="@item.UserID">Details</a> |*@
-                    <a asp-action="DeleteUser" asp-route-id="@item.UserID">Xóa</a>
+                    <a asp-action="DeleteUser" asp-route-id="@item.Id">Xóa</a>
                 </td>
             </tr>
         }
