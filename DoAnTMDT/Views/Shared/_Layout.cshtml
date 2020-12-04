@@ -1,7 +1,24 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 @{
-    string userName = User.Identity.Name != null ? $"Hello {User.Identity.Name}" : "Login";
+    void LoginTemplate(string userName)
+    {
+        if (userName != null)
+        {
+            <a href="@Url.Action("ChangeInfo","Account")" class="flex-c-m trans-04 p-lr-25">
+                @userName - Change Info
+            </a>
+            <a href="@Url.Action("TrackCart","Home")" class="flex-c-m trans-04 p-lr-25">
+                Cart Tracking
+            </a>
+        }
+        else
+        {
+            <a href="#" id="loginBtn" class="flex-c-m trans-04 p-lr-25">
+                Login
+            </a>
+        }
+    }
 }
 <head>
     <meta charset="utf-8" />
@@ -60,15 +77,13 @@
                             Help & FAQs
                         </a>
 
-                        <a href="#" id="loginBtn" class="flex-c-m trans-04 p-lr-25">
-                            @userName
-                        </a>
+                        @{ LoginTemplate(User.Identity.Name); }
 
                         @if (User.Identity.Name != null)
                         {
-                    <form method="post" asp-controller="account" asp-action="Logout" id="logoutForm">
-                        <a href="#" class="flex-c-m trans-04 p-lr-25" onclick="document.getElementById('logoutForm').submit();">Logout</a>
-                    </form>
+                            <form method="post" asp-controller="account" asp-action="Logout" id="logoutForm">
+                                <a href="#" class="flex-c-m trans-04 p-lr-25" onclick="document.getElementById('logoutForm').submit();">Logout</a>
+                            </form>
                         }
                     </div>
                 </div>

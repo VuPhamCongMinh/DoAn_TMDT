@@ -3,8 +3,8 @@
     ViewData["Title"] = "Tracking giỏ hàng";
 }
 
-@functions {
-    private void RenderCssClass(bool isCompleted)
+@{
+    void RenderCssClass(bool isCompleted)
     {
         if (isCompleted)
         {
@@ -16,13 +16,13 @@
         }
     }
 
-    private void RenderResultHtml(bool isCompleted)
+    void RenderResultHtml(bool isCompleted)
     {
         if (isCompleted)
         {
             <div class="align-self-center">
                 <p class="font-weight-bold">Lúa đã về với buôn làng</p>
-                <p class="font-weight-light">Lúa đang về với buôn làng</p>
+                <p class="font-weight-light">Lúa đã về với buôn làng</p>
             </div>
         }
         else
@@ -34,7 +34,7 @@
         }
     }
 
-    private void RenderButton(bool isCompleted, string cartID)
+    void RenderButton(bool isCompleted, string cartID)
     {
         if (isCompleted)
         {
@@ -50,6 +50,7 @@
 <link href="~/css/trackcart.css" rel="stylesheet" />
 
 
+<h1 class="text-center">Danh sách đơn hàng đã thanh toán</h1>
 @if (Model.PayedCart != null)
 {
     @foreach (var cart in Model.PayedCart)
@@ -99,7 +100,7 @@
                     </div>
                     <div class="row d-flex justify-content-center mt-2">
                         <div class="col-md-10">
-                            @{RenderButton(cart.IsCompleted,cart.CartID); }
+                            @{RenderButton(cart.IsCompleted, cart.CartID); }
                         </div>
                     </div>
                 </div>
@@ -108,6 +109,8 @@
     }
 }
 
+
+<h1 class="text-center">Danh sách đơn hàng chưa thanh toán</h1>
 @if (Model.UnpayedCart != null)
 {
     @foreach (var cart in Model.UnpayedCart)

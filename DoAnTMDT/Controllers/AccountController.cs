@@ -114,6 +114,40 @@ namespace DoAnTMDT.Controllers
             }
         }
 
+        [Authorize]
+        public IActionResult ChangeInfo()
+        {
+            var user = _userManager.FindByNameAsync(
+                HttpContext.User.Identity.Name).Result;
 
+            if (user != null)
+            {
+                return View(user);
+            }
+            return View("Error");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ChangeInfo(string diachi, string sdt)
+        {
+            try
+            {
+                var user = _userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
+
+                if (!string.IsNullOrWhiteSpace(diachi) && !string.IsNullOrWhiteSpace(sdt))
+                {
+                    user.Address = diachi;
+                    user.Phone = sdt;
+                    _userManager.UpdateAsync(user);
+                }
+
+                return View(user);
+            }
+            catch (System.Exception)
+            {
+                return View("Error");
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\appsettings.Development.json
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\libman.json
-D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\DoAnTMDT.exe
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\DoAnTMDT.deps.json
 D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\DoAnTMDT.runtimeconfig.json
@@ -366,3 +365,6 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Product.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\User.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Admin_layout.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\scopedcss\bundle\DoAnTMDT.styles.css
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangeInfo.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewStart.cshtml.g.cs

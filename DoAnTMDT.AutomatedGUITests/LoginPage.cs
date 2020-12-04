@@ -18,7 +18,7 @@ namespace DoAnTMDT.AutomatedGUITests
         private IWebElement UsernameTextbox => _driver.FindElement(by: By.CssSelector(@"#loginForm input[name=""UserName""]"));
         private IWebElement PasswordTextbox => _driver.FindElement(by: By.CssSelector(@"#loginForm input[name=""Password""]"));
         private IWebElement LoginButton => _driver.FindElement(by: By.CssSelector("#loginForm button.normal-button"));
-        private IWebElement LogoutButton => _driver.FindElement(by: By.CssSelector("#loginBtn ~ form"));
+        private IWebElement LogoutButton => _driver.FindElement(by: By.CssSelector(".right-top-bar > #logoutForm"));
         public bool HienThiManHinhDangXuatThanhCong
         {
             get
