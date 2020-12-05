@@ -1,8 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using DoAnTMDT.ViewModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -74,7 +79,7 @@ namespace DoAnTMDT.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(LoginRegisterViewModel vm)
         {
-            ApplicationUser identity = new ApplicationUser { UserName = vm.UserName };
+            ApplicationUser identity = new ApplicationUser { UserName = vm.UserName, Email = vm.UserName };
             ModelState.Remove("RememberMe");
             ModelState.Remove("PasswordConfirm");
             if (ModelState.IsValid)
@@ -87,7 +92,7 @@ namespace DoAnTMDT.Controllers
                     string confirmationLink = Url.Action("ConfirmEmail", "Account", new { username = identity, token = tokenString },
                     protocol: HttpContext.Request.Scheme);
                     //Gửi mail xác nhận cho user
-                    await _mailer.SendEmailAsync("vggff619@gmail.com", "Test thử lần n", confirmationLink);
+                    await _mailer.SendEmailAsync(vm.UserName, "Test thử lần n", confirmationLink);
                     //Code dưới sẽ đăng nhập liền sau khi user vừa đăng ký xong
                     //await _signInManager.PasswordSignInAsync(new ApplicationUser { UserName = vm.UserName }, vm.Password, isPersistent: false, lockoutOnFailure: false);
                     return RedirectToAction("Index", "Home");
@@ -104,8 +109,20 @@ namespace DoAnTMDT.Controllers
             var result = await _userManager.ConfirmEmailAsync(user, token);
             if (result.Succeeded)
             {
-                ViewBag.Message = "Email confirmed successfully!";
-                return View("Success");
+                try
+                {
+                    await _signInManager.SignInAsync(user, false);
+
+                    if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != _userManager.FindByNameAsync(user.UserName).Result.Id || _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") == null)
+                    {
+                        _cookieServices.AddCookie(HttpContext, "CART_INFORMATION", _userManager.FindByNameAsync(user.UserName).Result.Id);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (System.Exception)
+                {
+                    return View("Error");
+                }
             }
             else
             {
@@ -149,5 +166,52 @@ namespace DoAnTMDT.Controllers
                 return View("Error");
             }
         }
+
+        public IActionResult GoogleLogin()
+        {
+
+            var redirectUrl = Url.Action("GoogleResponse", "Account");
+            var properties = _signInManager
+                .ConfigureExternalAuthenticationProperties(GoogleDefaults.AuthenticationScheme, redirectUrl);
+            return new ChallengeResult(GoogleDefaults.AuthenticationScheme, properties);
+        }
+
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+         info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (!signInResult.Succeeded)
+            {
+                // Get the email claim value
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+
+                if (email != null)
+                {
+                    // Create a new user without password if we do not have a user already
+                    var user = await _userManager.FindByEmailAsync(email);
+
+                    if (user == null)
+                    {
+                        user = new ApplicationUser
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        };
+
+                        await _userManager.CreateAsync(user);
+                    }
+
+                    // Add a login (i.e insert a row for the user in AspNetUserLogins table)
+                    await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
+

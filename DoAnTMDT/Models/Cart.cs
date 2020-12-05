@@ -40,7 +40,7 @@ namespace DoAnTMDT.Models
                 //_cookieServices.AddCookie(httpContext, "CART_INFORMATION", httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
                 //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
-                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => !x.IsPayed).ToList();
+                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.UserID == cookie && !x.IsPayed).ToList();
                 return dsdonhangchuathanhtoan;
             }
             return null;
@@ -56,7 +56,7 @@ namespace DoAnTMDT.Models
             return null;
         }
 
-        internal static bool ConfirmOrder(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices,string orderID)
+        internal static bool ConfirmOrder(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices, string orderID)
         {
             string cookie = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
             if (cookie != null)

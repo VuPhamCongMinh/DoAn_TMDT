@@ -55,13 +55,13 @@ namespace DoAnTMDT.Models
             if (bienkiemtraxemcosanphamtrongdb != null)
             {
                 string cookieKey = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
-                string guidKey = Guid.NewGuid().ToString();
+
                 if (string.IsNullOrEmpty(cookieKey))
                 {
                     cookieKey = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _cookieServices.AddCookie(httpContext, "CART_INFORMATION", cookieKey);
                 }
-                var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && !x.Cart.IsPayed);
+                var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && x.Cart.UserID == cookieKey && !x.Cart.IsPayed);
 
                 if (bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Count() > 0)
                 {
@@ -168,7 +168,8 @@ namespace DoAnTMDT.Models
                 }
                 else
                 {
-                    Cart cartDetail = new Cart { CartID = guidKey, UserID = cookieKey,OderDate = DateTime.Now };
+                    string guidKey = Guid.NewGuid().ToString();
+                    Cart cartDetail = new Cart { CartID = guidKey, UserID = cookieKey, OderDate = DateTime.Now };
                     CartDetail detail;
                     byte calculatedQuantity = 0;
                     if (size == "small")

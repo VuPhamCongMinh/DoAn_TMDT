@@ -368,3 +368,4 @@ D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Shared
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\scopedcss\bundle\DoAnTMDT.styles.css
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangeInfo.cshtml.g.cs
 D:\Noi chua chat xam cua tui\DoAnTMDT\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewStart.cshtml.g.cs
+D:\Noi chua chat xam cua tui\DoAnTMDT\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.Google.dll

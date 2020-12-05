@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "uxgyVN4+yrdtoSmEjNVIYXzMHrJPBsVnJ16Ag+hSkIdJ30SkINfKcVMHXPcQOU8mtYTnU/re1KsV5wm96rmysg==",
+  "dgSpecHash": "fEaMICFUkl5r8YVjlzw03LUwTu/d+pJ84psYOmiaUEj40TgAbWcDlNPKZj6L8bcYfUUQZoLQiX2jrO/Ybjbj3A==",
   "success": true,
   "projectFilePath": "D:\\Noi chua chat xam cua tui\\DoAnTMDT\\DoAnTMDT.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\braintreehttp-dotnet\\0.3.0\\braintreehttp-dotnet.0.3.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\mailkit\\2.9.0\\mailkit.2.9.0.nupkg.sha512",
+    "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\3.1.10\\microsoft.aspnetcore.authentication.google.3.1.10.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.8\\microsoft.aspnetcore.cryptography.internal.3.1.8.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\3.1.8\\microsoft.aspnetcore.cryptography.keyderivation.3.1.8.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

@@ -1,6 +1,7 @@
 using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,7 +28,22 @@ namespace DoAnTMDT
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddIdentity<ApplicationUser, IdentityRole>(opt => opt.SignIn.RequireConfirmedEmail = true).AddEntityFrameworkStores<DoAnTMDT_Entities>().AddDefaultTokenProviders();
+            services.AddAuthentication(/*options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme*/)
+                .AddGoogle(options =>
+                {
+                    IConfigurationSection googleAuthNSection =
+                        Configuration.GetSection("Authentication:Google");
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                });
+            services.AddDbContextPool<DoAnTMDT_Entities>(option => option.UseSqlServer(Configuration.GetConnectionString("DoAnTMDT")));
             services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
+            services.AddSingleton<IMailer, Mailer>();
+            services.AddSingleton<CookieServices>();
+            services.AddControllersWithViews();
+
+
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequiredLength = 6;
@@ -36,11 +52,7 @@ namespace DoAnTMDT
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             });
-            services.AddDbContextPool<DoAnTMDT_Entities>(option => option.UseSqlServer(Configuration.GetConnectionString("DoAnTMDT")));
             services.Configure<SmtpSettings>(Configuration.GetSection("SmtpSettings"));
-            services.AddSingleton<IMailer, Mailer>();
-            services.AddSingleton<CookieServices>();
-            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
