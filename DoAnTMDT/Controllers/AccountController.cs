@@ -1,12 +1,9 @@
-﻿using System.Linq;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using DoAnTMDT.ViewModels;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -182,8 +179,14 @@ namespace DoAnTMDT.Controllers
 
             var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider,
          info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-
-            if (!signInResult.Succeeded)
+            if (signInResult.Succeeded)
+            {
+                if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != _userManager.FindByEmailAsync(info.Principal.FindFirstValue(ClaimTypes.Email)).Result.Id || _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") == null)
+                {
+                    _cookieServices.AddCookie(HttpContext, "CART_INFORMATION", _userManager.FindByEmailAsync(info.Principal.FindFirstValue(ClaimTypes.Email)).Result.Id);
+                }
+            }
+            else
             {
                 // Get the email claim value
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
@@ -198,7 +201,8 @@ namespace DoAnTMDT.Controllers
                         user = new ApplicationUser
                         {
                             UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-                            Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            EmailConfirmed = true,
                         };
 
                         await _userManager.CreateAsync(user);
