@@ -14,12 +14,22 @@ $("#registerForm").submit(function (e) {
         type: 'post',
         data: formData,
         url: 'Account/Register',
+        beforeSend: function () {
+            Swal.fire.fire.fire({
+                title: 'Đang xử lý ...',
+                text: 'Đợi xíu nghen :)',
+                imageUrl: 'pacman.gif',
+                imageWidth: 270,
+                imageHeight: 150,
+                timer: 3000
+            })
+        },
         success: function (res) {
-            swal('Tạo thành công', "Bạn phải xác nhận email mới khi được đăng nhập nhé", "success")
+            Swal.fire.fire('Tạo thành công', "Bạn phải xác nhận email mới khi được đăng nhập nhé", "success")
         },
         error: function (res) {
             if (res.status == 69) {
-                swal('Hãy thử lại', "Tên email nãy đã được sử dụng", "info")
+                Swal.fire.fire.fire('Hãy thử lại', "Tên email nãy đã được sử dụng", "info")
             }
         }
     });
@@ -35,11 +45,12 @@ $("#loginForm").submit(function (e) {
         data: formData,
         url: 'Account/Login',
         success: function (res) {
+            $('#loader').hide();
             location.reload();
         },
         error: function (res) {
             if (res.status == 69) {
-                swal('Hãy thử lại', "Tên tài khoản hoặc mật khẩu không đúng", "error")
+                Swal.fire.fire('Hãy thử lại', "Tên tài khoản hoặc mật khẩu không đúng", "error")
             }
         }
     });
