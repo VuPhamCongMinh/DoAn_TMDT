@@ -31,10 +31,8 @@ namespace DoAnTMDT
             services.AddAuthentication(/*options => options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme*/)
                 .AddGoogle(options =>
                 {
-                    IConfigurationSection googleAuthNSection =
-                        Configuration.GetSection("Authentication:Google");
-                    options.ClientId = googleAuthNSection["ClientId"];
-                    options.ClientSecret = googleAuthNSection["ClientSecret"];
+                    options.ClientId = "35970415649-pioqsgd7ns9lor4jce8ec634l0c0gsej.apps.googleusercontent.com";
+                    options.ClientSecret = "wIA9-pAcFB7O8lEmOyz0koF6";
                 });
             services.AddDbContextPool<DoAnTMDT_Entities>(option => option.UseSqlServer(Configuration.GetConnectionString("DoAnTMDT")));
             services.Configure<DataProtectionTokenProviderOptions>(o => o.TokenLifespan = TimeSpan.FromHours(5));
@@ -68,6 +66,10 @@ namespace DoAnTMDT
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseCookiePolicy(new CookiePolicyOptions()
+            {
+                MinimumSameSitePolicy = SameSiteMode.Lax
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();

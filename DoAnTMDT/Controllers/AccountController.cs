@@ -143,17 +143,17 @@ namespace DoAnTMDT.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult ChangeInfo(string diachi, string sdt)
+        public async Task<IActionResult> ChangeInfo(string diachi, string sdt)
         {
             try
             {
-                var user = _userManager.FindByNameAsync(HttpContext.User.Identity.Name).Result;
+                var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
 
                 if (!string.IsNullOrWhiteSpace(diachi) && !string.IsNullOrWhiteSpace(sdt))
                 {
                     user.Address = diachi;
                     user.Phone = sdt;
-                    _userManager.UpdateAsync(user);
+                    await _userManager.UpdateAsync(user);
                 }
 
                 return View(user);
