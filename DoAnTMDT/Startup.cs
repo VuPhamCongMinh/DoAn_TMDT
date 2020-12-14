@@ -1,9 +1,10 @@
-using DoAnTMDT.DbContext;
+﻿using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
 using DoAnTMDT.Sevices;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,11 @@ namespace DoAnTMDT
             services.AddSingleton<CookieServices>();
             services.AddControllersWithViews();
 
-
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = new PathString("/Home");
+                //Set đường dẫn khi mà người dùng vào Action mà chưa có quyền hoặc ko có quyền sẽ trả về đường dẫn trên
+            });
 
             services.Configure<IdentityOptions>(options =>
             {

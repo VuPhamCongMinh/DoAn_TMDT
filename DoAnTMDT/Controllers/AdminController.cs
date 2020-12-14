@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoAnTMDT.Controllers
 {
+    [Authorize(Roles = "IsAdmin")]
     public class AdminController : Controller
     {
         private readonly DoAnTMDT_Entities _context;

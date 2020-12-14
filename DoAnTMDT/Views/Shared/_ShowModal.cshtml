@@ -213,7 +213,7 @@
             let itemQuantity = $("input[name=num-product]").val();
 
             if (!itemSize || itemQuantity <= 0) {
-                swal("Item not Added","Please check Size or Quantity", "error");
+                Swal.fire("Item not Added","Please check Size or Quantity", "error");
             }
             else {
 
@@ -222,7 +222,7 @@
                 type: 'POST',
                 url: '@Url.Action("AddCart","Home")',
                 success: function (res) {
-                    swal(nameProduct, "is added to cart !", "success");
+                    Swal.fire(nameProduct, "is added to cart !", "success");
                     //#region Code re-render lại giỏ hàng trên navbar khi thêm thành công
                 //Re-render Bộ đếm
                 $.ajax({
@@ -239,8 +239,17 @@
                     }
                 });
             //#endregion
+
+                    console.log(res);
                 },
-                error: function (res) { console.log(res); }
+                error: function (res) {
+                    if (res.status == 401) {
+                        Swal.fire("Thêm giỏ hàng thất bại", "Đăng nhập mới được mua đồ nghen bạn :)", "error");
+                    }
+                    else {
+                            Swal.fire("Thất bại", "Tui cũng không biết tại sao lỗi nữa :(", "error");
+                    }
+                }
             });
 
             }
@@ -264,7 +273,7 @@
         var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
 
         $(this).on('click', function () {
-            swal(nameProduct, "is added to wishlist !", "success");
+            Swal.fire(nameProduct, "is added to wishlist !", "success");
 
             $(this).addClass('js-addedwish-detail');
             $(this).off('click');

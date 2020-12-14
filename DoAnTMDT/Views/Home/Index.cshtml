@@ -67,6 +67,9 @@
 
     <script>
         $(function () {
+            if (window.location.href.indexOf("ReturnUrl") > -1) {
+                $("#loginBtn").click();
+            }
 
             @if(TempData["CheckoutSuccess"] != null && (bool)TempData["CheckoutSuccess"] == true)
             {

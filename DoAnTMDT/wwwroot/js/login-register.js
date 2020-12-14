@@ -15,7 +15,7 @@ $("#registerForm").submit(function (e) {
         data: formData,
         url: 'Account/Register',
         beforeSend: function () {
-            Swal.fire.fire.fire({
+            Swal.fire({
                 title: 'Đang xử lý ...',
                 text: 'Đợi xíu nghen :)',
                 imageUrl: 'pacman.gif',
@@ -25,11 +25,11 @@ $("#registerForm").submit(function (e) {
             })
         },
         success: function (res) {
-            Swal.fire.fire('Tạo thành công', "Bạn phải xác nhận email mới khi được đăng nhập nhé", "success")
+            Swal.fire('Tạo thành công', "Bạn phải xác nhận email mới khi được đăng nhập nhé", "success")
         },
         error: function (res) {
             if (res.status == 69) {
-                Swal.fire.fire.fire('Hãy thử lại', "Tên email nãy đã được sử dụng", "info")
+                Swal.fire('Hãy thử lại', "Tên email nãy đã được sử dụng", "info")
             }
         }
     });
