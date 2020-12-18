@@ -111,6 +111,23 @@ namespace DoAnTMDT.Controllers
             return View(nameof(Error));
         }
 
+        #region Thanh toán COD
+        public IActionResult CodCheckout(string id)
+        {
+            try
+            {
+                var giohangthanhtoanthanhcong = _context.CartTable.Find(id).IsCOD = true;
+                _context.SaveChanges();
+                return Redirect(Url.Action(nameof(CheckoutSuccess), "Home", new { id = id }, protocol: Request.Scheme));
+            }
+            catch (HttpException e)
+            {
+                return RedirectToAction(nameof(CheckoutFail));
+            }
+        }
+        #endregion
+
+        #region Thanh toán Paypal
         public async System.Threading.Tasks.Task<IActionResult> CheckoutAsync(string id)
         {
             var environment = new SandboxEnvironment(_clientID, _secretID);
@@ -122,6 +139,7 @@ namespace DoAnTMDT.Controllers
             };
 
             //Query tính tổng giá của đơn hàng bằng cách lặp rồi tính sum của giá * số lượng
+            var test = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).ToList();
             var totalPrice = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).Sum(x => x.Product.ProductPrice * x.Quantity);
             var cartItem = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product);
 
@@ -158,7 +176,7 @@ namespace DoAnTMDT.Controllers
                         },
                         ItemList = itemList,
                         Description = "Hóa đơn 696",
-                        InvoiceNumber = "696969"
+                        InvoiceNumber = id
                     }
                 },
                 RedirectUrls = new RedirectUrls()
@@ -204,13 +222,19 @@ namespace DoAnTMDT.Controllers
                 return RedirectToAction(nameof(CheckoutFail));
             }
         }
+        #endregion
         public IActionResult CheckoutSuccess(string id)
         {
             try
             {
                 var giohangthanhtoanthanhcong = _context.CartTable.Find(id);
-                giohangthanhtoanthanhcong.IsPayed = true;
-                giohangthanhtoanthanhcong.PayDate = DateTime.Now;
+
+                giohangthanhtoanthanhcong.IsDisplay = false;
+                if (!giohangthanhtoanthanhcong.IsCOD)
+                {
+                    giohangthanhtoanthanhcong.IsPayed = true;
+                    giohangthanhtoanthanhcong.PayDate = DateTime.Now;
+                }
                 _context.SaveChanges();
                 TempData["CheckoutSuccess"] = true;
             }
@@ -228,12 +252,12 @@ namespace DoAnTMDT.Controllers
         }
         public IActionResult Cart()
         {
-            var giohang = _context.DisplayCart(HttpContext, _cookieServices);
+            var giohang = _context.DisplayPopupCart(HttpContext, _cookieServices);
             return View(giohang);
         }
         public IActionResult TrackCart()
         {
-            TrackCartViewModel donhang = new TrackCartViewModel(_context.DisplayPayedCart(HttpContext, _cookieServices), _context.DisplayCart(HttpContext, _cookieServices));
+            TrackCartViewModel donhang = new TrackCartViewModel(_context.DisplayCompletedCart(HttpContext, _cookieServices), _context.DisplayCart(HttpContext, _cookieServices));
             return View(donhang);
         }
 

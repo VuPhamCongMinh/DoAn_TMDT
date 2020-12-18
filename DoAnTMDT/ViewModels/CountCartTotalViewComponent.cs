@@ -25,7 +25,7 @@ namespace DoAnTMDT.ViewModels
         {
             if (_cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") != null && HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier) != null)
             {
-                ViewBag.Total = _context.CartDetailTable.Where(x => x.Cart.UserID == _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") && !x.Cart.IsPayed).Count();
+                ViewBag.Total = _context.CartDetailTable.Where(x => x.Cart.UserID == _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION") && x.Cart.IsDisplay).Count();
                 return View("_CountTotalCartItem");
             }
             else

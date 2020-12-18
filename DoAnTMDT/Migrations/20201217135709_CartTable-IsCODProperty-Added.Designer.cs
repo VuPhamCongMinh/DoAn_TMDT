@@ -4,14 +4,16 @@ using DoAnTMDT.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoAnTMDT.Migrations
 {
     [DbContext(typeof(DoAnTMDT_Entities))]
-    partial class DoAnTMDT_EntitiesModelSnapshot : ModelSnapshot
+    [Migration("20201217135709_CartTable-IsCODProperty-Added")]
+    partial class CartTableIsCODPropertyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +101,6 @@ namespace DoAnTMDT.Migrations
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDisplay")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsPayed")

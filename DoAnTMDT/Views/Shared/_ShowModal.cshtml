@@ -210,9 +210,10 @@
         $(this).on('click', function (e) {
             let idToSearch = $(this).data('id');
             let itemSize = $("#sizeSelect").val();
+            let itemSizeLeft = $("#sizeSelect option:selected").text().match(/\d+/)[0];
             let itemQuantity = $("input[name=num-product]").val();
 
-            if (!itemSize || itemQuantity <= 0) {
+            if (!itemSize || itemQuantity <= 0 || itemSizeLeft - itemQuantity <= 0 ) {
                 Swal.fire("Item not Added","Please check Size or Quantity", "error");
             }
             else {
@@ -239,8 +240,6 @@
                     }
                 });
             //#endregion
-
-                    console.log(res);
                 },
                 error: function (res) {
                     if (res.status == 401) {

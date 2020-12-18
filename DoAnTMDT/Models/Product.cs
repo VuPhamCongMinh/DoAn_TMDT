@@ -61,7 +61,7 @@ namespace DoAnTMDT.Models
                     cookieKey = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
                     _cookieServices.AddCookie(httpContext, "CART_INFORMATION", cookieKey);
                 }
-                var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && x.Cart.UserID == cookieKey && !x.Cart.IsPayed);
+                var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.Cart.UserID == cookieKey && x.Cart.IsDisplay);
 
                 if (bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Count() > 0)
                 {
@@ -73,8 +73,11 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                                }
                             }
                             else
                             {
@@ -85,8 +88,11 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                                }
                             }
                             else
                             {
@@ -97,14 +103,19 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                                }
                             }
                             else
                             {
                                 bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity -= quantity;
                             }
                         }
+
+
                         if (calculatedQuantity > 0)
                         {
                             bienkiemtraxemsanphamdodacotronggiohangchua.Quantity += calculatedQuantity;
@@ -122,8 +133,11 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                                }
                             }
                             else
                             {
@@ -134,8 +148,11 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                                }
                             }
                             else
                             {
@@ -146,8 +163,11 @@ namespace DoAnTMDT.Models
                         {
                             if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity - quantity < 0)
                             {
-                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
-                                bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                                if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity > 0)
+                                {
+                                    calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
+                                    bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                                }
                             }
                             else
                             {
@@ -176,8 +196,11 @@ namespace DoAnTMDT.Models
                     {
                         if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity - quantity < 0)
                         {
-                            calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
-                            bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                            if (bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity > 0)
+                            {
+                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity;
+                                bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity = 0;
+                            }
                         }
                         else
                         {
@@ -188,8 +211,11 @@ namespace DoAnTMDT.Models
                     {
                         if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity - quantity < 0)
                         {
-                            calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
-                            bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                            if (bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity > 0)
+                            {
+                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity;
+                                bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity = 0;
+                            }
                         }
                         else
                         {
@@ -200,8 +226,11 @@ namespace DoAnTMDT.Models
                     {
                         if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity - quantity < 0)
                         {
-                            calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
-                            bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                            if (bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity > 0)
+                            {
+                                calculatedQuantity = bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity;
+                                bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity = 0;
+                            }
                         }
                         else
                         {

@@ -73,7 +73,7 @@
 
             @if(TempData["CheckoutSuccess"] != null && (bool)TempData["CheckoutSuccess"] == true)
             {
-                <text>swal('Thanh toán thành công', "Bạn đã thành công trong việc tốn tiền một cách lãng phí", "success");</text>
+                <text>Swal.fire('Thanh toán thành công', "Bạn đã thành công trong việc tốn tiền một cách lãng phí", "success");</text>
             }
 
             $("#select").typeahead({

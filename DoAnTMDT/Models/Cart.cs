@@ -24,6 +24,8 @@ namespace DoAnTMDT.Models
         public DateTime PayDate { get; set; }
 
         public bool IsCompleted { get; set; }
+        public bool IsCOD { get; set; }
+        public bool IsDisplay { get; set; } = true;
         public ICollection<CartDetail> CartDetails { get; set; }
 
 
@@ -31,6 +33,20 @@ namespace DoAnTMDT.Models
     public static class CartChucNang
     {
         internal static CookieServices _cookieServices = new CookieServices();
+
+        internal static IEnumerable<Cart> DisplayPopupCart(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices)
+        {
+            string cookie = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
+            if (cookie != null)
+            {
+                //_cookieServices.AddCookie(httpContext, "CART_INFORMATION", httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
+                //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
+                var dsdonhangduochienthi = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.UserID == cookie && x.IsDisplay).ToList();
+                return dsdonhangduochienthi;
+            }
+            return null;
+        }
 
         internal static IEnumerable<Cart> DisplayCart(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices)
         {
@@ -40,17 +56,17 @@ namespace DoAnTMDT.Models
                 //_cookieServices.AddCookie(httpContext, "CART_INFORMATION", httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
                 //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
                 //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
-                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.UserID == cookie && !x.IsPayed).ToList();
+                var dsdonhangchuathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.UserID == cookie && !x.IsCompleted && !x.IsDisplay).ToList();
                 return dsdonhangchuathanhtoan;
             }
             return null;
         }
-        internal static IEnumerable<Cart> DisplayPayedCart(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices)
+        internal static IEnumerable<Cart> DisplayCompletedCart(this DoAnTMDT_Entities _context, HttpContext httpContext, CookieServices _cookieServices)
         {
             string cookie = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
             if (cookie != null)
             {
-                var dsdonhangdathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.IsPayed).ToList();
+                var dsdonhangdathanhtoan = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.IsCompleted && !x.IsDisplay).ToList();
                 return dsdonhangdathanhtoan;
             }
             return null;

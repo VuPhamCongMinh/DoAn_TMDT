@@ -40,6 +40,8 @@
     <Compile Remove="Migrations\20200925092154_CartDetailTable&amp;CartTable-Addded.Designer.cs" />
     <Compile Remove="Migrations\20200925134042_CartDetailTable&amp;CartTable-Addded.cs" />
     <Compile Remove="Migrations\20200925134042_CartDetailTable&amp;CartTable-Addded.Designer.cs" />
+    <Compile Remove="Migrations\20201217135128_CartTable-IsCODProperty-Added.cs" />
+    <Compile Remove="Migrations\20201217135128_CartTable-IsCODProperty-Added.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

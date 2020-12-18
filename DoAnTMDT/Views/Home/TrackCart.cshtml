@@ -21,15 +21,15 @@
         if (isCompleted)
         {
             <div class="align-self-center">
-                <p class="font-weight-bold">Lúa đã về với buôn làng</p>
-                <p class="font-weight-light">Lúa đã về với buôn làng</p>
+                <p class="font-weight-bold">Hàng đã được giao</p>
+                <p class="font-weight-light"></p>
             </div>
         }
         else
         {
             <div class="align-self-center">
-                <p class="font-weight-bold">Lúa đang về với buôn làng</p>
-                <p class="font-weight-light">Đợi xíu nghen</p>
+                <p class="font-weight-bold">Hàng đang được giao</p>
+                <p class="font-weight-light">Hàng sẽ được giao trong khoảng 2-3 ngày</p>
             </div>
         }
     }
@@ -38,11 +38,11 @@
     {
         if (isCompleted)
         {
-            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" disabled>Lúa đã về</button>
+            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" disabled>Xác nhận hoàn thành đơn hàng</button>
         }
         else
         {
-            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" data-cartid="@cartID">Lúa đã về</button>
+            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" data-cartid="@cartID">Xác nhận hoàn thành đơn hàng</button>
         }
     }
 }
@@ -50,62 +50,79 @@
 <link href="~/css/trackcart.css" rel="stylesheet" />
 
 
-<h1 class="text-center">Danh sách đơn hàng đã thanh toán</h1>
+<h4 class="text-center ltext-109 cl2 p-t-50">Orders đã hoàn tất</h4>
 @if (Model.PayedCart.Count() != 0)
 {
     @foreach (var cart in Model.PayedCart)
     {
-        @foreach (var cartDetail in cart.CartDetails)
-        {
-            <div class="container px-1 px-md-4 py-5 mx-auto">
-                <div class="card">
-                    <div class="row d-flex justify-content-between px-3 top">
-                        <div class="d-flex">
-                            <h5>ORDER <span class="text-primary font-weight-bold">#@cart.CartID</span></h5>
-                        </div>
-                        <div class="d-flex flex-column text-sm-right">
-                            <p class="mb-0">Thời gian dự kiến hàng được giao <span>@cart.PayDate.AddDays(3).ToString("dd/MM/yyyy")</span></p>
-                            <p>Đơn vị vận chuyển <span class="font-weight-bold">Lương Sơn Hiền Express</span></p>
-                        </div>
-                    </div> <!-- Add class 'active' to progress -->
-                    <div class="row d-flex justify-content">
-                        <div class="col-12">
-                            <ul id="progressbar" class="text-center">
-                                <li class="active step0"></li>
-                                <li class="active step0"></li>
-                                @{RenderCssClass(cart.IsCompleted); }
-                                @* Nếu thuộc tính IsCompleted là true thì thêm class active vào element li trên *@
-                            </ul>
+        <div>
+            <div class="card">
+                <div class="row d-flex justify-content-between px-3 top">
+                    <div class="d-flex flex-column">
+                        <p>MÃ ĐƠN HÀNG <span class="text-primary font-weight-bold">#@cart.CartID</span></p>
+                        <p>Hình thức <span class="text-primary font-weight-bold">@(cart.IsCOD ? "COD": "Thanh toán bằng Paypal")</span></p>
+                    </div>
+                    <div class="d-flex flex-column text-sm-right">
+                        <p class="mb-0">Thời gian dự kiến hàng được giao <span>@cart.PayDate.AddDays(3).ToString("dd/MM/yyyy")</span></p>
+                        <p>Đơn vị vận chuyển <span class="font-weight-bold">Lương Sơn Hiền Express</span></p>
+                    </div>
+                </div> <!-- Add class 'active' to progress -->
+                <div class="row d-flex justify-content">
+                    <div class="col-12">
+                        <ul id="progressbar" class="text-center">
+                            <li class="active step0"></li>
+                            <li class="active step0"></li>
+                            @{RenderCssClass(cart.IsCompleted); }
+                            @* Nếu thuộc tính IsCompleted là true thì thêm class active vào element li trên *@
+                        </ul>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-between top">
+                    <div class="row d-flex icon-content">
+                        <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                        <div class="align-self-center">
+                            <p class="font-weight-bold">Đặt hàng thành công</p>
+                            <p class="font-weight-light">@cart.OderDate</p>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-between top">
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
-                            <div class="align-self-center">
-                                <p class="font-weight-bold">Đặt hàng thành công</p>
-                                <p class="font-weight-light">@cart.OderDate</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
-                            <div class="align-self-center">
-                                <p class="font-weight-bold">Đã tốn tiền thành công</p>
-                                <p class="font-weight-light">@cart.PayDate</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/TkPm63y.png">
-                            @{RenderResultHtml(cart.IsCompleted); }
+                    <div class="row d-flex icon-content">
+                        <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                        <div class="align-self-center">
+                            <p class="font-weight-bold">Đã tốn tiền thành công</p>
+                            <p class="font-weight-light">@cart.PayDate</p>
                         </div>
                     </div>
-                    <div class="row d-flex justify-content-center mt-2">
-                        <div class="col-md-10">
-                            @{RenderButton(cart.IsCompleted, cart.CartID); }
-                        </div>
+                    <div class="row d-flex icon-content">
+                        <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                        @{RenderResultHtml(cart.IsCompleted); }
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center mt-2">
+                    <div class="col-md-10">
+                        @{RenderButton(cart.IsCompleted, cart.CartID); }
                     </div>
                 </div>
             </div>
-        }
+        </div>
+        <table class="table-shopping-cart">
+            <tr class="table_head">
+                <th class="column-1">SẢN PHẨM</th>
+                <th class="column-2"></th>
+                <th class="column-3">GIÁ</th>
+            </tr>
+            @foreach (var cartDetail in cart.CartDetails)
+            {
+                <tr class="table_row">
+                    <td class="column-1">
+                        <div class="how-itemcart1">
+                            <img src="@Url.Content(cartDetail.Product.ImagePath)" alt="IMG">
+                        </div>
+                    </td>
+                    <td class="column-2"> @cartDetail.Product.ProductName - x @cartDetail.Quantity</td>
+                    <td class="column-3">$ @cartDetail.Product.ProductPrice  </td>
+                </tr>
+            }
+        </table>
     }
 }
 else
@@ -114,70 +131,85 @@ else
 }
 
 
-<h1 class="text-center">Danh sách đơn hàng chưa thanh toán</h1>
+<h1 class="text-center ltext-109 cl2 p-t-50">Orders chưa hoàn tất</h1>
 @if (Model.UnpayedCart.Count() != 0)
 {
     @foreach (var cart in Model.UnpayedCart)
     {
-        @foreach (var cartDetail in cart.CartDetails)
-        {
-            <div class="container px-1 px-md-4 py-5 mx-auto">
-                <div class="card">
-                    <div class="row d-flex justify-content-between px-3 top">
-                        <div class="d-flex">
-                            <h5>ORDER <span class="text-primary font-weight-bold">#@cart.CartID</span></h5>
-                        </div>
-                        <div class="d-flex flex-column text-sm-right">
-                            <p class="mb-0">Thời gian dự kiến hàng được giao <span>@cart.PayDate.AddDays(3).ToString("dd/MM/yyyy")</span></p>
-                            <p>Đơn vị vận chuyển <span class="font-weight-bold">Lương Sơn Hiền Express</span></p>
-                        </div>
-                    </div> <!-- Add class 'active' to progress -->
-                    <div class="row d-flex justify-content">
-                        <div class="col-12">
-                            <ul id="progressbar" class="text-center">
-                                <li class="active step0"></li>
-                                <li class="active step0"></li>
-                                <li class="step0"></li>
-                                @* Nếu thuộc tính IsCompleted là true thì thêm class active vào element li trên *@
-                            </ul>
-                        </div>
+        <div class="card">
+            <div class="row d-flex justify-content-between px-3 top">
+                <div class="d-flex flex-column">
+                    <p>MÃ ĐƠN HÀNG <span class="text-primary font-weight-bold">#@cart.CartID</span></p>
+                    <p>Hình thức <span class="text-primary font-weight-bold">@(cart.IsCOD ? "COD": "Thanh toán bằng Paypal")</span></p>
+                </div>
+                <div class="d-flex flex-column text-sm-right">
+                    <p class="mb-0">Thời gian dự kiến hàng được giao <span>@cart.PayDate.AddDays(3).ToString("dd/MM/yyyy")</span></p>
+                    <p>Đơn vị vận chuyển <span class="font-weight-bold">Lương Sơn Hiền Express</span></p>
+                </div>
+            </div> <!-- Add class 'active' to progress -->
+            <div class="row d-flex justify-content">
+                <div class="col-12">
+                    <ul id="progressbar" class="text-center">
+                        <li class="active step0"></li>
+                        <li class="step0"></li>
+                        <li class="step0"></li>
+                        @* Nếu thuộc tính IsCompleted là true thì thêm class active vào element li trên *@
+                    </ul>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-between top">
+                <div class="row d-flex icon-content">
+                    <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+                    <div class="align-self-center">
+                        <p class="font-weight-bold">Thêm vào giỏ hàng thành công</p>
+                        <p class="font-weight-light"></p>
                     </div>
-                    <div class="row d-flex justify-content-between top">
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
-                            <div class="align-self-center">
-                                <p class="font-weight-bold">Đặt hàng thành công</p>
-                                <p class="font-weight-light">@cart.OderDate</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
-                            <div class="align-self-center">
-                                <p class="font-weight-bold">Đã tốn tiền thành công</p>
-                                <p class="font-weight-light">@cart.PayDate</p>
-                            </div>
-                        </div>
-                        <div class="row d-flex icon-content">
-                            <img class="icon" src="https://i.imgur.com/TkPm63y.png">
-                            <div class="align-self-center">
-                                <p class="font-weight-bold">Lúa đang về với buôn làng</p>
-                                <p class="font-weight-light">Lúa đang về với buôn làng</p>
-                            </div>
-                        </div>
+                </div>
+                <div class="row d-flex icon-content">
+                    <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+                    <div class="align-self-center">
+                        <p class="font-weight-bold">Thanh toán</p>
+                        <p class="font-weight-light"></p>
                     </div>
-                    <div class="row d-flex justify-content-center mt-2">
-                        <div class="col-md-10">
-                            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" data-cartid="@cart.CartID">Lúa đã về</button>
-                        </div>
+                </div>
+                <div class="row d-flex icon-content">
+                    <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+                    <div class="align-self-center">
+                        <p class="font-weight-bold">Hàng đang được giao</p>
+                        <p class="font-weight-light"></p>
                     </div>
                 </div>
             </div>
-        }
+            <div class="row d-flex justify-content-center mt-2">
+                <div class="col-md-10">
+                    <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" data-cartid="@cart.CartID">Xác nhận hoàn thành đơn hàng</button>
+                </div>
+            </div>
+        </div>
+        <table class="table-shopping-cart">
+            <tr class="table_head">
+                <th class="column-1">SẢN PHẨM</th>
+                <th class="column-2"></th>
+                <th class="column-3">GIÁ</th>
+            </tr>
+            @foreach (var cartDetail in cart.CartDetails)
+            {
+                <tr class="table_row">
+                    <td class="column-1">
+                        <div class="how-itemcart1">
+                            <img src="@Url.Content(cartDetail.Product.ImagePath)" alt="IMG">
+                        </div>
+                    </td>
+                    <td class="column-2"> @cartDetail.Product.ProductName - x @cartDetail.Quantity</td>
+                    <td class="column-3">$ @cartDetail.Product.ProductPrice</td>
+                </tr>
+            }
+        </table>
     }
 }
 else
 {
-    <h3 class="text-center">Trống trơn</h3>
+    <h3 class="text-center">Trống</h3>
 }
 
 @section Scripts {
