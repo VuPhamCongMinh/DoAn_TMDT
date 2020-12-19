@@ -11,42 +11,48 @@
     <h6>Thông tin khách hàng</h6>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @*@Html.DisplayNameFor(model => model.Email)*@
             Email
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
         <dt class="col-sm-2">
             @*@Html.DisplayNameFor(model => model.Account)*@
             Tên tài khoản
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.UserName)
         </dd>
         @*<dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PassWord)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PassWord)
-        </dd>*@
-        <dt class = "col-sm-2">
+                @Html.DisplayNameFor(model => model.PassWord)
+            </dt>
+            <dd class = "col-sm-10">
+                @Html.DisplayFor(model => model.PassWord)
+            </dd>*@
+        <dt class="col-sm-2">
             @*@Html.DisplayNameFor(model => model.Phone)*@
             Số điện thoại
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Phone)
+        <dd class="col-sm-10">
+            @foreach (var item in Model.DeliveryInfo)
+            {
+                @Html.DisplayFor(model => item.Phone)
+            }
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @*@Html.DisplayNameFor(model => model.Address)*@
             Địa chỉ
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
+        <dd class="col-sm-10">
+            @foreach (var item in Model.DeliveryInfo)
+            {
+                @Html.DisplayFor(model => item.Address)
+            }
         </dd>
     </dl>
-    
+
     <form asp-action="DeleteUser">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

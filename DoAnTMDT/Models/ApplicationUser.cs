@@ -9,7 +9,7 @@ namespace DoAnTMDT.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Phone { get; set; }
-        public string Address { get; set; }
+        public int Point { get; set; }
+        public ICollection<AddressAndPhone> DeliveryInfo { get; set; }
     }
 }

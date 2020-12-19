@@ -19,5 +19,6 @@ namespace DoAnTMDT.DbContext
         public DbSet<Product> ProductTable { get; set; }
         public DbSet<Cart> CartTable { get; set; }
         public DbSet<CartDetail> CartDetailTable { get; set; }
+        public DbSet<AddressAndPhone> DeliveryInfoTable { get; set; }
     }
 }

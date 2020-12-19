@@ -4,14 +4,16 @@ using DoAnTMDT.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DoAnTMDT.Migrations
 {
     [DbContext(typeof(DoAnTMDT_Entities))]
-    partial class DoAnTMDT_EntitiesModelSnapshot : ModelSnapshot
+    [Migration("20201219052903_DeliveryInfoTable-NavigationProperty-Added")]
+    partial class DeliveryInfoTableNavigationPropertyAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +37,12 @@ namespace DoAnTMDT.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserIDId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserIDId");
 
                     b.ToTable("DeliveryInfoTable");
                 });
@@ -335,9 +337,9 @@ namespace DoAnTMDT.Migrations
 
             modelBuilder.Entity("DoAnTMDT.Models.AddressAndPhone", b =>
                 {
-                    b.HasOne("DoAnTMDT.Models.ApplicationUser", "User")
+                    b.HasOne("DoAnTMDT.Models.ApplicationUser", "UserID")
                         .WithMany("DeliveryInfo")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserIDId");
                 });
 
             modelBuilder.Entity("DoAnTMDT.Models.CartDetail", b =>

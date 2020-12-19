@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using BraintreeHttp;
 using System;
 using DoAnTMDT.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace DoAnTMDT.Controllers
 {
@@ -20,13 +21,15 @@ namespace DoAnTMDT.Controllers
     {
         private readonly CookieServices _cookieServices;
         private readonly DoAnTMDT_Entities _context;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly string _clientID;
         private readonly string _secretID;
 
 
-        public HomeController(CookieServices cookieServices, DoAnTMDT_Entities context, IConfiguration config)
+        public HomeController(CookieServices cookieServices, DoAnTMDT_Entities context, IConfiguration config, UserManager<ApplicationUser> userManager)
         {
             _cookieServices = cookieServices;
+            _userManager = userManager;
             _context = context;
             _clientID = config["paypal:clientId"];
             _secretID = config["paypal:clientSecret"];
@@ -139,23 +142,22 @@ namespace DoAnTMDT.Controllers
             };
 
             //Query tính tổng giá của đơn hàng bằng cách lặp rồi tính sum của giá * số lượng
-            var test = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).ToList();
             var totalPrice = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).Sum(x => x.Product.ProductPrice * x.Quantity);
             var cartItem = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product);
-
+            //Giảm giá 20% khi thanh toán = Paypal
+            totalPrice -= (totalPrice * 20 / 100);
             foreach (var item in cartItem)
             {
                 itemList.Items.Add(new Item()
                 {
                     Name = item.Product.ProductName,
                     Currency = "USD",
-                    Price = item.Product.ProductPrice.ToString(),
+                    Price = (item.Product.ProductPrice - item.Product.ProductPrice * 20 / 100).ToString(),
                     Quantity = item.Quantity.ToString(),
                     Sku = "sku",
                     Tax = "0"
                 });
             }
-
             var payment = new Payment()
             {
                 Intent = "sale",
@@ -252,7 +254,7 @@ namespace DoAnTMDT.Controllers
         }
         public IActionResult Cart()
         {
-            var giohang = _context.DisplayPopupCart(HttpContext, _cookieServices);
+            var giohang = _context.DisplayCartAndUserInfo(HttpContext, _userManager, _cookieServices);
             return View(giohang);
         }
         public IActionResult TrackCart()
@@ -264,7 +266,7 @@ namespace DoAnTMDT.Controllers
         [HttpPost]
         public IActionResult ConfirmCompleted(string id)
         {
-            if (_context.ConfirmOrder(HttpContext, _cookieServices, id))
+            if (_context.ConfirmOrder(_userManager, HttpContext, _cookieServices, id))
             {
                 return Ok();
             }

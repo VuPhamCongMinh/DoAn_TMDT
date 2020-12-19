@@ -48,10 +48,16 @@
                         @Html.DisplayFor(modelItem => item.PassWord)
                     </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
+                    @foreach (var item1 in item.DeliveryInfo)
+                    {
+                        @Html.DisplayFor(model => item1.Phone)
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Address) 
+                    @foreach (var item1 in item.DeliveryInfo)
+                    {
+                        @Html.DisplayFor(model => item1.Address)
+                    }
                 </td>
                 <td>
                     @*<a asp-action="Edit" asp-route-id="@item.UserID">Edit</a> |

@@ -8,13 +8,13 @@ namespace DoAnTMDT.ViewModels
 {
     public class TrackCartViewModel
     {
-        public IEnumerable<Cart> PayedCart { get; }
-        public IEnumerable<Cart> UnpayedCart { get; }
+        public IEnumerable<Cart> CompletedOrders { get; }
+        public IEnumerable<Cart> InCompletedOrders { get; }
 
-        public TrackCartViewModel(IEnumerable<Cart> payedCart, IEnumerable<Cart> unpayedCart)
+        public TrackCartViewModel(IEnumerable<Cart> completedOrders, IEnumerable<Cart> inCompletedOrders)
         {
-            PayedCart = payedCart;
-            UnpayedCart = unpayedCart;
+            CompletedOrders = completedOrders;
+            InCompletedOrders = inCompletedOrders;
         }
     }
 }

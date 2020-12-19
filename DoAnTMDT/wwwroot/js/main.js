@@ -290,7 +290,7 @@
 
         $.ajax({
             data: { id: idToSearch },
-            url: 'Home/SingleItemToToModal',
+            url: '/Home/SingleItemToToModal',
             success: function (res) {
                 $('.js-modal1').addClass('show-modal1');
                 $('#ModalArea').html(res);

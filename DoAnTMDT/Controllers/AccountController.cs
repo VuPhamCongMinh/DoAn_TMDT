@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using DoAnTMDT.DbContext;
 using DoAnTMDT.Models;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using static DoAnTMDT.Sevices.EmailServices;
 
 namespace DoAnTMDT.Controllers
@@ -131,8 +133,7 @@ namespace DoAnTMDT.Controllers
         [Authorize]
         public IActionResult ChangeInfo()
         {
-            var user = _userManager.FindByNameAsync(
-                HttpContext.User.Identity.Name).Result;
+            var user =  _userManager.Users.Include(x => x.DeliveryInfo).SingleAsync(x => x.NormalizedUserName == HttpContext.User.Identity.Name).Result;
 
             if (user != null)
             {
@@ -143,17 +144,43 @@ namespace DoAnTMDT.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> ChangeInfo(string diachi, string sdt)
+        public async Task<IActionResult> ChangeInfo(int addressValue, string diachi, string sdt)
         {
             try
             {
-                var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                //var user = await _userManager.FindByNameAsync(HttpContext.User.Identity.Name);
+                var user = await _userManager.Users.Include(x => x.DeliveryInfo).SingleAsync(x => x.NormalizedUserName == HttpContext.User.Identity.Name);
 
                 if (!string.IsNullOrWhiteSpace(diachi) && !string.IsNullOrWhiteSpace(sdt))
                 {
-                    user.Address = diachi;
-                    user.Phone = sdt;
-                    await _userManager.UpdateAsync(user);
+
+                    var addressInfo = new AddressAndPhone { User = user, Address = diachi, Phone = sdt };
+
+                    if (addressValue == 0)
+                    {
+                        addressInfo.AddressValue = 1;
+                    }
+                    else
+                    {
+                        addressInfo.AddressValue = addressValue;
+                    }
+
+                    try
+                    {
+                        if (_context.DeliveryInfoTable.SingleOrDefault(x => x.User.Id == user.Id && x.AddressValue == addressValue) != null)
+                        {
+                            _context.DeliveryInfoTable.RemoveRange(_context.DeliveryInfoTable.Single(x => x.User.Id == user.Id && x.AddressValue == addressValue));
+                            await _context.SaveChangesAsync();
+                        }
+
+                        user.DeliveryInfo.Add(addressInfo);
+                        await _userManager.UpdateAsync(user);
+                    }
+                    catch (System.Exception e)
+                    {
+
+                        throw;
+                    }
                 }
 
                 return View(user);
