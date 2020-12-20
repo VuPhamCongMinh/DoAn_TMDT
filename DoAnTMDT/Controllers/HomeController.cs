@@ -123,6 +123,7 @@ namespace DoAnTMDT.Controllers
 
         #region Thanh toán COD
         [Authorize]
+        [HttpPost]
         public IActionResult CodCheckout(string id, bool? usePoint = false)
         {
             try
@@ -157,6 +158,7 @@ namespace DoAnTMDT.Controllers
 
         #region Thanh toán Paypal
         [Authorize]
+        [HttpPost]
         public async System.Threading.Tasks.Task<IActionResult> CheckoutAsync(string id, int? addressValue, bool? usePoint = false)
         {
             var environment = new SandboxEnvironment(_clientID, _secretID);
