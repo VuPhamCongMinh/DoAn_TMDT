@@ -59,7 +59,7 @@ namespace DoAnTMDT.Models
                 //Muốn lấy đơn hàng theo điều kiện thì dùng exstension method Where(x => x.Property) ở đoạn code dưới
                 //Code dưới hiển thị danh sách chưa đơn hàng chưa được thanh toán
                 var dsdonhangduochienthi = _context.CartTable.Include(x => x.CartDetails).ThenInclude(x => x.Product).Where(x => x.UserID == cookie && x.IsDisplay).ToList();
-                return new CartAndUserViewModel(dsdonhangduochienthi, _userManager.FindByNameAsync(httpContext.User.Identity.Name).Result);
+                return new CartAndUserViewModel(dsdonhangduochienthi, _userManager.Users.Include(x=>x.DeliveryInfo).Single(x => x.UserName == httpContext.User.Identity.Name));
             }
             return null;
         }

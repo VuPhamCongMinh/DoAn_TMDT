@@ -60,6 +60,13 @@ namespace DoAnTMDT.Controllers
             var returnItem = _context.ProductTable.Find(id);
             return Json(returnItem);
         }
+        [Authorize]
+        public JsonResult GetAddressInfo(int addressValue)
+        {
+            string userID = _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION");
+            var returnItem = _context.DeliveryInfoTable.Single(x => x.User.Id == userID && x.AddressValue == addressValue);
+            return Json(returnItem);
+        }
         #endregion
 
         public IActionResult Index()
@@ -115,13 +122,31 @@ namespace DoAnTMDT.Controllers
         }
 
         #region Thanh toán COD
-        public IActionResult CodCheckout(string id)
+        [Authorize]
+        public IActionResult CodCheckout(string id, bool? usePoint = false)
         {
             try
             {
                 var giohangthanhtoanthanhcong = _context.CartTable.Find(id).IsCOD = true;
                 _context.SaveChanges();
-                return Redirect(Url.Action(nameof(CheckoutSuccess), "Home", new { id = id }, protocol: Request.Scheme));
+
+                var totalPrice = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).Sum(x => x.Product.ProductPrice * x.Quantity);
+                var user = _userManager.Users.Include(x => x.DeliveryInfo).SingleAsync(x => x.Id == _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION")).Result;
+                var pointLeft = user.Point;
+
+
+                if (usePoint == true && user.Point > 0)
+                {
+                    if (user.Point <= totalPrice)
+                    {
+                        pointLeft = 0;
+                    }
+                    else
+                    {
+                        pointLeft = (user.Point - Convert.ToInt32(totalPrice));
+                    }
+                }
+                return Redirect(Url.Action(nameof(CheckoutSuccess), "Home", new { id = id, userid = user.Id, pointLeft = pointLeft }, protocol: Request.Scheme));
             }
             catch (HttpException e)
             {
@@ -131,7 +156,8 @@ namespace DoAnTMDT.Controllers
         #endregion
 
         #region Thanh toán Paypal
-        public async System.Threading.Tasks.Task<IActionResult> CheckoutAsync(string id)
+        [Authorize]
+        public async System.Threading.Tasks.Task<IActionResult> CheckoutAsync(string id, int? addressValue, bool? usePoint = false)
         {
             var environment = new SandboxEnvironment(_clientID, _secretID);
             var client = new PayPalHttpClient(environment);
@@ -142,90 +168,129 @@ namespace DoAnTMDT.Controllers
             };
 
             //Query tính tổng giá của đơn hàng bằng cách lặp rồi tính sum của giá * số lượng
-            var totalPrice = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).Sum(x => x.Product.ProductPrice * x.Quantity);
-            var cartItem = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product);
-            //Giảm giá 20% khi thanh toán = Paypal
-            totalPrice -= (totalPrice * 20 / 100);
-            foreach (var item in cartItem)
+            //Nếu cart được tìm thuộc giỏ hàng đang hiển thị thì mới gọi paypal tránh hiện tượng user nhập lại id cũ đã thanh toán nhưng vẫn gọi api paypal
+            if (_context.CartTable.Find(id).IsDisplay == true)
             {
-                itemList.Items.Add(new Item()
+
+                var totalPrice = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product).Sum(x => x.Product.ProductPrice * x.Quantity);
+                var cartItem = _context.CartDetailTable.Where(x => x.CartID == id).Include(x => x.Product);
+                //Free ship 15$
+                var saleOff = 15;
+                var user = await _userManager.Users.Include(x => x.DeliveryInfo).SingleAsync(x => x.Id == _cookieServices.ReadCookie(HttpContext, "CART_INFORMATION"));
+                var pointLeft = user.Point;
+                var orderAmount = new Amount()
                 {
-                    Name = item.Product.ProductName,
+                    Total = (totalPrice - saleOff).ToString(),
                     Currency = "USD",
-                    Price = (item.Product.ProductPrice - item.Product.ProductPrice * 20 / 100).ToString(),
-                    Quantity = item.Quantity.ToString(),
-                    Sku = "sku",
-                    Tax = "0"
-                });
-            }
-            var payment = new Payment()
-            {
-                Intent = "sale",
-                Transactions = new List<Transaction>()
+                    Details = new AmountDetails
+                    {
+                        Tax = "0",
+                        Shipping = "0",
+                        ShippingDiscount = saleOff.ToString(),
+                        Subtotal = totalPrice.ToString()
+                    }
+                };
+                if (usePoint == true && user.Point > 0)
+                {
+                    if (user.Point <= totalPrice)
+                    {
+                        Item point = new Item { Name = "Xu", Currency = "USD", Price = (-user.Point).ToString(), Quantity = "1", Description = $"Sử dụng {user.Point} xu " };
+                        itemList.Items.Add(point);
+                        orderAmount.Details.Subtotal = (Convert.ToInt32(orderAmount.Details.Subtotal) - user.Point).ToString();
+                        orderAmount.Total = (Convert.ToInt32(orderAmount.Total) - user.Point).ToString();
+                        pointLeft = 0;
+                    }
+                    else
+                    {
+                        Item point = new Item { Name = "Xu", Currency = "USD", Price = (-user.Point).ToString(), Quantity = user.Point.ToString(), Description = $"Sử dụng {totalPrice} xu để giảm giá" };
+                        itemList.Items.Add(point);
+                        orderAmount.Details.ShippingDiscount = "0";
+                        orderAmount.Details.Subtotal = (Convert.ToInt32(orderAmount.Details.Subtotal) - user.Point).ToString();
+                        orderAmount.Total = (Convert.ToInt32(orderAmount.Total) - user.Point).ToString();
+                        pointLeft = (user.Point - Convert.ToInt32(totalPrice));
+                    }
+                }
+
+                foreach (var item in cartItem)
+                {
+                    itemList.Items.Add(new Item()
+                    {
+                        Name = item.Product.ProductName,
+                        Currency = "USD",
+                        Price = (item.Product.ProductPrice).ToString(),
+                        Quantity = item.Quantity.ToString()
+                    });
+                }
+
+                if (addressValue >= 1 && addressValue <= 2)
+                {
+                    itemList.ShippingAddress = new ShippingAddress { City = user.DeliveryInfo.Single(x => x.AddressValue == addressValue).Address, Phone = user.DeliveryInfo.Single(x => x.AddressValue == addressValue).Phone, CountryCode = "VN", Line1 = "Q.10", Line2 = "Sư Vạn Hạnh", State = user.DeliveryInfo.Single(x => x.AddressValue == addressValue).Address, RecipientName = user.UserName, PostalCode = "70000" };
+                    itemList.ShippingPhoneNumber = user.DeliveryInfo.Single(x => x.AddressValue == addressValue).Phone;
+                }
+
+                var payment = new Payment()
+                {
+                    Intent = "sale",
+                    Transactions = new List<Transaction>()
                 {
                     new Transaction()
                     {
-                        Amount = new Amount()
-                        {
-                            Total = totalPrice.ToString(),
-                            Currency = "USD",
-                            Details = new AmountDetails
-                            {
-                                Tax = "0",
-                                Shipping = "0",
-                                Subtotal = totalPrice.ToString()
-                            }
-                        },
+                        Amount = orderAmount,
                         ItemList = itemList,
                         Description = "Hóa đơn 696",
                         InvoiceNumber = id
                     }
                 },
-                RedirectUrls = new RedirectUrls()
-                {
-                    CancelUrl = Url.Action(nameof(CheckoutFail), "Home", null, protocol: Request.Scheme),
-                    ReturnUrl = Url.Action(nameof(CheckoutSuccess), "Home", new { id = id }, protocol: Request.Scheme),
-                },
-                Payer = new Payer()
-                {
-                    PaymentMethod = "paypal"
-                }
-            };
-
-            PaymentCreateRequest request = new PaymentCreateRequest();
-            request.RequestBody(payment);
-
-            try
-            {
-                var response = await client.Execute(request);
-                var statusCode = response.StatusCode;
-                Payment result = response.Result<Payment>();
-
-                var links = result.Links.GetEnumerator();
-                string paypalRedirectUrl = null;
-                while (links.MoveNext())
-                {
-                    LinkDescriptionObject lnk = links.Current;
-                    if (lnk.Rel.ToLower().Trim().Equals("approval_url"))
+                    RedirectUrls = new RedirectUrls()
                     {
-                        //saving the payapalredirect URL to which user will be redirected for payment  
-                        paypalRedirectUrl = lnk.Href;
+                        CancelUrl = Url.Action(nameof(CheckoutFail), "Home", null, protocol: Request.Scheme),
+                        ReturnUrl = Url.Action(nameof(CheckoutSuccess), "Home", new { id = id, userid = user.Id, pointLeft = pointLeft }, protocol: Request.Scheme),
+                    },
+                    Payer = new Payer()
+                    {
+                        PaymentMethod = "paypal"
                     }
+                };
+
+                PaymentCreateRequest request = new PaymentCreateRequest();
+                request.RequestBody(payment);
+
+                try
+                {
+                    var response = await client.Execute(request);
+                    var statusCode = response.StatusCode;
+                    Payment result = response.Result<Payment>();
+
+                    var links = result.Links.GetEnumerator();
+                    string paypalRedirectUrl = null;
+                    while (links.MoveNext())
+                    {
+                        LinkDescriptionObject lnk = links.Current;
+                        if (lnk.Rel.ToLower().Trim().Equals("approval_url"))
+                        {
+                            //saving the payapalredirect URL to which user will be redirected for payment  
+                            paypalRedirectUrl = lnk.Href;
+                        }
+                    }
+
+                    return Redirect(paypalRedirectUrl);
                 }
+                catch (HttpException httpException)
+                {
+                    var statusCode = httpException.StatusCode;
+                    var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
 
-                return Redirect(paypalRedirectUrl);
+                    //Process when Checkout with Paypal fails
+                    return RedirectToAction(nameof(CheckoutFail));
+                }
             }
-            catch (HttpException httpException)
+            else
             {
-                var statusCode = httpException.StatusCode;
-                var debugId = httpException.Headers.GetValues("PayPal-Debug-Id").FirstOrDefault();
-
-                //Process when Checkout with Paypal fails
                 return RedirectToAction(nameof(CheckoutFail));
             }
         }
         #endregion
-        public IActionResult CheckoutSuccess(string id)
+        public IActionResult CheckoutSuccess(string id, string userid, int pointLeft)
         {
             try
             {
@@ -237,6 +302,9 @@ namespace DoAnTMDT.Controllers
                     giohangthanhtoanthanhcong.IsPayed = true;
                     giohangthanhtoanthanhcong.PayDate = DateTime.Now;
                 }
+                var user = _userManager.FindByIdAsync(userid).Result;
+                user.Point = pointLeft;
+                _userManager.UpdateAsync(user);
                 _context.SaveChanges();
                 TempData["CheckoutSuccess"] = true;
             }

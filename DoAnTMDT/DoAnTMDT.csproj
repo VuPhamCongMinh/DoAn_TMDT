@@ -44,6 +44,8 @@
     <Compile Remove="Migrations\20201217135128_CartTable-IsCODProperty-Added.Designer.cs" />
     <Compile Remove="Migrations\20201219053043_DeliveryInfoTable-NavigationProperty-Updated.cs" />
     <Compile Remove="Migrations\20201219053043_DeliveryInfoTable-NavigationProperty-Updated.Designer.cs" />
+    <Compile Remove="Migrations\20201219111207_DeliveryInfoTable-AddressValue-ConstraintAdded.cs" />
+    <Compile Remove="Migrations\20201219111207_DeliveryInfoTable-AddressValue-ConstraintAdded.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

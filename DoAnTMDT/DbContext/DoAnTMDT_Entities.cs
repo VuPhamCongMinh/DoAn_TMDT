@@ -15,10 +15,16 @@ namespace DoAnTMDT.DbContext
         {
 
         }
-        
+
         public DbSet<Product> ProductTable { get; set; }
         public DbSet<Cart> CartTable { get; set; }
         public DbSet<CartDetail> CartDetailTable { get; set; }
         public DbSet<AddressAndPhone> DeliveryInfoTable { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<AddressAndPhone>(entity => entity.HasCheckConstraint("CK_DeliveryInfoTable_AddressValueColumn", "[AddressValue] >= 1 AND [AddressValue] <=2"));
+        }
     }
 }
