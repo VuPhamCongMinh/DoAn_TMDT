@@ -192,3 +192,4 @@ C:\Users\ACER\source\repos\DoAn_TMDT\DoAnTMDT.AutomatedGUITests\obj\Debug\netcor
 C:\Users\ACER\source\repos\DoAn_TMDT\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.dll
 C:\Users\ACER\source\repos\DoAn_TMDT\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.pdb
 C:\Users\ACER\source\repos\DoAn_TMDT\DoAnTMDT.AutomatedGUITests\obj\Debug\netcoreapp3.1\DoAnTMDT.AutomatedGUITests.genruntimeconfig.cache
+D:\Noi chua chat xam cua tui\DoAnTMDT.AutomatedGUITests\bin\Debug\netcoreapp3.1\WebDriver.Support.dll

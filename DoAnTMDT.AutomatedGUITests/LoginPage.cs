@@ -25,7 +25,7 @@ namespace DoAnTMDT.AutomatedGUITests
             {
                 try
                 {
-                    if (!LogoutButton.Displayed)
+                    if (LogoutButton.Displayed)
                     {
                         return true;
                     }

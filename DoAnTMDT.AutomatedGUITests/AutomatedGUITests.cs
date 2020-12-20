@@ -11,12 +11,14 @@ namespace DoAnTMDT.AutomatedGUITests
     {
         private readonly IWebDriver _driver;
         private readonly LoginPage _loginPage;
+        private readonly ShoppingPage _shoppingPage;
 
         public AutomatedGUITests()
         {
             _driver = new ChromeDriver();
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
             _loginPage = new LoginPage(_driver);
+            _shoppingPage = new ShoppingPage(_driver);
         }
 
         public void Dispose()
@@ -54,6 +56,18 @@ namespace DoAnTMDT.AutomatedGUITests
             LoginTest();
             _loginPage.ClickVaoNutDangXuat();
             Assert.True(_loginPage.HienThiManHinhDangXuatThanhCong);
+        }
+
+
+        [Fact]
+        public void AddToCartTest()
+        {
+            LoginTest();
+            _shoppingPage.DieuHuong();
+            _shoppingPage.MoModalChiTietSP();
+            _shoppingPage.ChonSize();
+            _shoppingPage.ThemVaoGioHang();
+            Assert.True(_shoppingPage.HienThiManHinhThemGioHangThanhCong);
         }
     }
 }
