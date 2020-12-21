@@ -306,7 +306,7 @@ namespace DoAnTMDT.Controllers
                 }
                 var user = _userManager.FindByIdAsync(userid).Result;
                 user.Point = pointLeft;
-                _userManager.UpdateAsync(user);
+                //_userManager.UpdateAsync(user);
                 _context.SaveChanges();
                 TempData["CheckoutSuccess"] = true;
             }

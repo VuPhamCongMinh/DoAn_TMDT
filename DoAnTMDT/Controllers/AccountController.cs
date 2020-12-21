@@ -160,10 +160,11 @@ namespace DoAnTMDT.Controllers
                     {
                         addressInfo.AddressValue = 1;
                     }
-                    else
+                    else if (addressValue >= 1 || addressValue <=2)
                     {
                         addressInfo.AddressValue = addressValue;
                     }
+                    
 
                     try
                     {

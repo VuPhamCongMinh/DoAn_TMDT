@@ -14,11 +14,15 @@
                     {
                         <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
                             <select class="js-select2 select2-hidden-accessible" name="addressValue" tabindex="-1" aria-hidden="true">
-                                <option>Địa chỉ giao hàng</option>
+                                <option value="-1">Địa chỉ giao hàng</option>
                                 @if (Model.DeliveryInfo.Count == 1)
                                 {
                                     <option value="@Model.DeliveryInfo.Single().AddressValue">@Model.DeliveryInfo.Single().Address</option>
                                     <option value="2">Thêm địa chỉ</option>
+                                }
+                                else if (Model.DeliveryInfo.Count == 0)
+                                {
+                                    <option value="1">Thêm địa chỉ</option>
                                 }
                                 else
                                 {
