@@ -274,17 +274,17 @@ namespace DoAnTMDT.Models
                     {
                         if (size == "small")
                         {
-                            bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity++;
+                            bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity += quantity;
                         }
                         else if (size == "large")
                         {
-                            bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity++;
+                            bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity += quantity;
                         }
                         else
                         {
-                            bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity++;
+                            bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity += quantity;
                         }
-                        bienkiemtraxemsanphamdodacotronggiohangchua.Quantity--;
+                        bienkiemtraxemsanphamdodacotronggiohangchua.Quantity -= quantity;
 
                         if (bienkiemtraxemsanphamdodacotronggiohangchua.Quantity == 0)
                         {

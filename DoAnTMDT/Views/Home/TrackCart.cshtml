@@ -135,16 +135,7 @@
                         </div>
                     </td>
                     <td class="column-2"> @cartDetail.Product.ProductName - x @cartDetail.Quantity</td>
-                    @{
-                        if (cart.IsCOD)
-                        {
-                            <td class="column-3">$ @cartDetail.Product.ProductPrice</td>
-                        }
-                        else
-                        {
-                            <td class="column-3">$ @(cartDetail.Product.ProductPrice - cartDetail.Product.ProductPrice*20/100)</td>
-                        }
-                    }
+                    <td class="column-3">$ @cartDetail.Product.ProductPrice</td>
                 </tr>
             }
         </table>
@@ -226,16 +217,7 @@ else
                         </div>
                     </td>
                     <td class="column-2"> @cartDetail.Product.ProductName - x @cartDetail.Quantity</td>
-                    @{
-                        if (cart.IsCOD)
-                        {
-                            <td class="column-3">$ @cartDetail.Product.ProductPrice</td>
-                        }
-                        else
-                        {
-                            <td class="column-3">$ @(cartDetail.Product.ProductPrice - cartDetail.Product.ProductPrice*20/100)</td>
-                        }
-                    }
+                    <td class="column-3">$ @(cartDetail.Product.ProductPrice - cartDetail.Product.ProductPrice)</td>
                 </tr>
             }
         </table>

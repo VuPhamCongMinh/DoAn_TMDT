@@ -132,7 +132,7 @@ namespace DoAnTMDT.Models
                     var cartDetailsInDB = _context.CartDetailTable.Include(x=>x.Product).Where(x => x.CartID == orderID).ToList();
                     foreach (var cartDetail in cartDetailsInDB)
                     {
-                        _context.RemoveFromCartWithoutSave(httpContext, cartDetail.ProductID, cartDetail.Size, (byte)cartDetail.Quantity);
+                        _context.RemoveFromCart(httpContext, cartDetail.ProductID, cartDetail.Size, (byte)cartDetail.Quantity);
                     }
                     _context.Remove(_context.CartTable.Find(orderID));
 
