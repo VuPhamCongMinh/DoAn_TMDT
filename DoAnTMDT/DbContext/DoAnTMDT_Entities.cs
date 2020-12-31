@@ -24,6 +24,11 @@ namespace DoAnTMDT.DbContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CartDetail>()
+           .HasOne(i => i.Cart)
+           .WithMany(c => c.CartDetails)
+           .IsRequired()
+           .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<AddressAndPhone>(entity => entity.HasCheckConstraint("CK_DeliveryInfoTable_AddressValueColumn", "[AddressValue] >= 1 AND [AddressValue] <=2"));
         }
     }

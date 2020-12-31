@@ -305,5 +305,59 @@ namespace DoAnTMDT.Models
             }
             return false;
         }
+
+        internal static void RemoveFromCartWithoutSave(this DoAnTMDT_Entities _context, HttpContext httpContext, int itemID, string size, byte quantity = 1)
+        {
+            Product bienkiemtraxemcosanphamtrongdb = _context.ProductTable.Find(itemID);
+            if (bienkiemtraxemcosanphamtrongdb != null)
+            {
+                string cookieKey = _cookieServices.ReadCookie(httpContext, "CART_INFORMATION");
+                string guidKey = Guid.NewGuid().ToString();
+                if (string.IsNullOrEmpty(cookieKey))
+                {
+                    cookieKey = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    _cookieServices.AddCookie(httpContext, "CART_INFORMATION", cookieKey);
+                }
+                var bienkiemtraxemcodonhangchuathanhtoancocungmadonhang = _context.CartDetailTable.Include(x => x.Cart).Where(x => x.CartID == x.Cart.CartID && !x.Cart.IsPayed);
+                try
+                {
+                    if (bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Count() > 0)
+                    {
+                        var bienkiemtraxemsanphamdodacotronggiohangchua = bienkiemtraxemcodonhangchuathanhtoancocungmadonhang.Where(x => x.ProductID == itemID && x.Size == size).FirstOrDefault();
+                        if (bienkiemtraxemsanphamdodacotronggiohangchua != null)
+                        {
+                            if (size == "small")
+                            {
+                                bienkiemtraxemcosanphamtrongdb.SmallSizeQuantity++;
+                            }
+                            else if (size == "large")
+                            {
+                                bienkiemtraxemcosanphamtrongdb.LargeSizeQuantity++;
+                            }
+                            else
+                            {
+                                bienkiemtraxemcosanphamtrongdb.MediumSizeQuantity++;
+                            }
+                            bienkiemtraxemsanphamdodacotronggiohangchua.Quantity--;
+
+                            if (bienkiemtraxemsanphamdodacotronggiohangchua.Quantity == 0)
+                            {
+                                var chitietdonhangsexoa = _context.CartDetailTable.Where(x => x.ProductID == itemID && x.Size == size).FirstOrDefault();
+                                if (_context.CartTable.Find(chitietdonhangsexoa.CartID) != null)
+                                {
+                                    _context.Remove(chitietdonhangsexoa);
+                                }
+                            }
+                            //_context.SaveChanges();
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
     }
 }

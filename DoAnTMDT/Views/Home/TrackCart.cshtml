@@ -57,7 +57,7 @@
     {
         if (isCompleted)
         {
-            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" disabled>Xác nhận hoàn thành đơn hàng</button>
+            <button type="button" class="w-100 btn btn-outline-dark font-weight-bold" disabled>Đơn hàng đã hoàn tất</button>
         }
         else
         {
@@ -203,7 +203,10 @@ else
                 </div>
             </div>
             <div class="row d-flex justify-content-center mt-2">
-                <div class="col-md-10">
+                <div class="col-md-5">
+                    <button type="button" class="w-100 btn btn-outline-dark font-weight-bold deleted-cart" data-cartid="@cart.CartID">Hủy đơn</button>
+                </div>
+                <div class="col-md-5">
                     <button type="button" class="w-100 btn btn-outline-dark font-weight-bold confirmed-cart" data-cartid="@cart.CartID">Xác nhận hoàn thành đơn hàng</button>
                 </div>
             </div>
@@ -255,7 +258,28 @@ else
                 url: '@Url.Action("ConfirmCompleted", "Home")',
                 success: function (res) {
                     setTimeout(location.reload.bind(location), 3000);
-                    swal("Thành công", "Đơn hàng đã hoàn tất, nhớ review bạn nhớ", "success");
+                    Swal.fire("Thành công", "Đơn hàng đã hoàn tất, nhớ review bạn nhớ", "success");
+                },
+                error: function (res) {
+                    console.log(res);
+                }
+            });
+
+            e.preventDefault();
+        });
+    });
+
+         $('.deleted-cart').each(function () {
+        $(this).on('click', function (e) {
+            let cartID = $(this).data('cartid');
+
+            $.ajax({
+                data: { id: cartID },
+                type: 'POST',
+                url: '@Url.Action("ConfirmDeleted", "Home")',
+                success: function (res) {
+                    setTimeout(location.reload.bind(location), 3000);
+                    Swal.fire("Thành công", "Đơn hàng đã được hủy thành công :(", "success");
                 },
                 error: function (res) {
                     console.log(res);

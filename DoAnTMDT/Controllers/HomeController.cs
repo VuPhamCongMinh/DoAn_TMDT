@@ -342,6 +342,17 @@ namespace DoAnTMDT.Controllers
             }
             return BadRequest();
 
+        } 
+        
+        [HttpPost]
+        public IActionResult ConfirmDeleted(string id)
+        {
+            if (_context.ConfirmDeleted(HttpContext, _cookieServices, id))
+            {
+                return Ok();
+            }
+            return BadRequest();
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
