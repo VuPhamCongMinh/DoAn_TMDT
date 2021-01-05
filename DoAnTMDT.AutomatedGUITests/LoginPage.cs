@@ -1,17 +1,21 @@
-﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using DoAnTMDT.DbContext;
+using OpenQA.Selenium;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DoAnTMDT.AutomatedGUITests
 {
     class LoginPage
     {
         private readonly IWebDriver _driver;
+        private readonly DoAnTMDT_Entities _context;
         private readonly string URL = "https://localhost:44313/";
 
         public LoginPage(IWebDriver driver)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<DoAnTMDT_Entities>();
+            optionsBuilder.UseSqlServer("server=(localdb)\\MSSQLLocalDB;database=DoAnTMDT;Trusted_Connection=true");
+            _context = new DoAnTMDT_Entities(optionsBuilder.Options);
             _driver = driver;
         }
         private IWebElement LoginRegisterModal => _driver.FindElement(by: By.Id("loginBtn"));
@@ -39,23 +43,31 @@ namespace DoAnTMDT.AutomatedGUITests
             }
         }
 
-        public bool HienThiManHinhDangNhapThanhCong
+        public string KetQuaDangNhap(string username, string password)
         {
-            get
+            var aa = _context.Users;
+            try
             {
-                try
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
-                    if (LogoutButton.Displayed)
-                    {
-                        return true;
-                    }
-                    return false;
+                    return "Tài khoản hoặc mật khẩu đang trống";
                 }
-                catch (NoSuchElementException)
+                else if (_context.Users.Where(u => u.NormalizedUserName == username.Normalize()).Count() == 0 )
                 {
-                    return false;
+                    return "Tài khoản không tồn tại";
                 }
-
+                else if (LogoutButton.Displayed)
+                {
+                    return null;
+                }
+                else
+                {
+                    return "Lỗi chưa xác định";
+                }
+            }
+            catch (NoSuchElementException e)
+            {
+                return e.Message;
             }
         }
 

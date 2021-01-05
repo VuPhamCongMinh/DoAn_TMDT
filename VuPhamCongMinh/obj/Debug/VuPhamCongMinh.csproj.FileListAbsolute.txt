@@ -1,7 +1,0 @@
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\bin\Debug\VuPhamCongMinh.exe.config
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\bin\Debug\VuPhamCongMinh.exe
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\bin\Debug\VuPhamCongMinh.pdb
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\obj\Debug\VuPhamCongMinh.csprojAssemblyReference.cache
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\obj\Debug\VuPhamCongMinh.csproj.CoreCompileInputs.cache
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\obj\Debug\VuPhamCongMinh.exe
-D:\Noi chua chat xam cua tui\VuPhamCongMinh\obj\Debug\VuPhamCongMinh.pdb

@@ -1,6 +1,5 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
 using Xunit;
@@ -16,9 +15,10 @@ namespace DoAnTMDT.AutomatedGUITests
         public AutomatedGUITests()
         {
             _driver = new ChromeDriver();
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(2);
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             _loginPage = new LoginPage(_driver);
             _shoppingPage = new ShoppingPage(_driver);
+
         }
 
         public void Dispose()
@@ -27,8 +27,9 @@ namespace DoAnTMDT.AutomatedGUITests
             _driver.Dispose();
         }
 
-        [Fact]
-        public void LoginTest()
+        [Theory]
+        [MemberData(nameof(AccountData.DuLieuMau), MemberType = typeof(AccountData))]
+        public void LoginTest(string username, string password)
         {
             //Trường hợp cố tình nhập sai
             //_driver.Navigate().GoToUrl("https://localhost:44313/Account/Login");
@@ -43,31 +44,47 @@ namespace DoAnTMDT.AutomatedGUITests
             //Implement lại nhưng theo Page Object Model Design Pattern
             _loginPage.DieuHuong();
             _loginPage.MoFormDangKyDangNhap();
-            _loginPage.NhapThongTinVaoUsernameTextBox("minhdeptrai");
-            _loginPage.NhapThongTinVaoPasswordTextBox("123456");
+            _loginPage.NhapThongTinVaoUsernameTextBox(username);
+            _loginPage.NhapThongTinVaoPasswordTextBox(password);
             _loginPage.ClickVaoNutDangNhap();
             Thread.Sleep(1000); //Đợi 1s để đợi chức năng đăng nhập xử lý xong
-            Assert.True(_loginPage.HienThiManHinhDangNhapThanhCong);
+            string stringKetQua = _loginPage.KetQuaDangNhap(username, password);
+
+            if (!string.IsNullOrWhiteSpace(stringKetQua))
+            {
+                Assert.True(false, stringKetQua);
+            }
+            else
+            {
+                Assert.True(true);
+            }
         }
 
         [Fact]
         public void LogoutTest()
         {
-            LoginTest();
+            LoginTest("minhdeptrai", "123456");
             _loginPage.ClickVaoNutDangXuat();
             Assert.True(_loginPage.HienThiManHinhDangXuatThanhCong);
         }
 
 
-        [Fact]
-        public void AddToCartTest()
+        [Theory]
+        [MemberData(nameof(AddToCartData.DuLieuMau), MemberType = typeof(AddToCartData))]
+        public void AddToCartTest(int productID, int quantity)
         {
-            LoginTest();
+            LoginTest("minhdeptrai", "123456");
             _shoppingPage.DieuHuong();
-            _shoppingPage.MoModalChiTietSP();
-            _shoppingPage.ChonSize();
-            _shoppingPage.ThemVaoGioHang();
-            Assert.True(_shoppingPage.HienThiManHinhThemGioHangThanhCong);
+            string stringKetQua = _shoppingPage.KetQuaThemGioHang(productID, quantity);
+
+            if (!string.IsNullOrWhiteSpace(stringKetQua))
+            {
+                Assert.True(false, stringKetQua);
+            }
+            else
+            {
+                Assert.True(true);
+            }
         }
     }
 }
